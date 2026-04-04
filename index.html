@@ -1392,7 +1392,7 @@ footer {
     </div>
   </div>
   <div class="footer-bottom wrap">
-    <p>© 2024 HanoPino. All rights reserved.</p>
+   <p>© <span id="year"></span> HanoPino. All rights reserved.</p>
     <p style="color:rgba(255,255,255,.3);">Filipino–Chinese · Connection · Culture · Belonging</p>
   </div>
 </footer>
@@ -1430,6 +1430,7 @@ function submitForm() {
   msg.style.display = 'block';
   msg.style.animation = 'fadeSlideUp .5s ease';
 }
+document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 </body>
