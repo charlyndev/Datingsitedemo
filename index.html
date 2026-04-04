@@ -129,10 +129,14 @@ transition: var(--t); white-space: nowrap;
 .fd3 { transition-delay: .24s; }
 .fd4 { transition-delay: .32s; }
 
-/* ═════════════════════════════════════════════.sticky-cta {
+/* ═════════════════════════════════════════════
+STICKY CTA
+═════════════════════════════════════════════ */
+
+.sticky-cta {
   position: fixed;
   bottom: 20px;
-  right: 20px; /* 👈 moved from center to right */
+  right: 20px;
   z-index: 9999;
 
   width: 60px;
@@ -154,11 +158,11 @@ transition: var(--t); white-space: nowrap;
   cursor: pointer;
 
   transition: transform var(--t), box-shadow var(--t);
+}
 
 .sticky-cta:hover {
   transform: translateY(-4px) scale(1.05);
   box-shadow: 0 12px 36px rgba(139,0,0,0.45);
-}
 }
 /* ══════════════════════════════════════════════════════
 NAVIGATION
