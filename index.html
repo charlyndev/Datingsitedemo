@@ -172,7 +172,7 @@ position: relative; overflow: hidden;
 padding: 80px 24px 72px; background: var(--cream);
 }
 .hero::before {
-content: ‘’; position: absolute; inset: 0; pointer-events: none;
+content: ''; position: absolute; inset: 0; pointer-events: none;
 background:
 radial-gradient(ellipse 55% 60% at 90% 10%, rgba(201,162,39,.09) 0%, transparent 65%),
 radial-gradient(ellipse 45% 50% at 5% 90%, rgba(139,0,0,.06) 0%, transparent 60%);
@@ -183,7 +183,7 @@ width: 480px; height: 480px; border-radius: 50%;
 border: 1px solid rgba(201,162,39,.12); pointer-events: none;
 }
 .hero-ring::after {
-content: ‘’; position: absolute; inset: 48px;
+content: ''; position: absolute; inset: 48px;
 border-radius: 50%; border: 1px dashed rgba(201,162,39,.10);
 }
 .hero-grid {
@@ -248,7 +248,7 @@ display: grid; grid-template-columns: repeat(3, 1fr);
 text-align: center;
 }
 .sbi { padding: 16px 24px; position: relative; }
-.sbi + .sbi::before { content: ‘’; position: absolute; left: 0; top: 20%; height: 60%; width: 1px; background: var(--border); }
+.sbi + .sbi::before { content: ''; position: absolute; left: 0; top: 20%; height: 60%; width: 1px; background: var(--border); }
 .sbi-num {
 font-family: var(--ff-display);
 font-size: clamp(2.4rem, 6vw, 3.6rem);
@@ -537,7 +537,6 @@ PROFILES
   padding: 4px 12px;
 }
 
-/* ══════════════════════════════════════════════════════
 .testimonials {
   padding: 96px 24px;
   background: var(--white);
@@ -658,7 +657,7 @@ border: 1px solid var(--border); box-shadow: var(--shadow-lg);
 padding: 36px 32px; position: relative; overflow: hidden;
 }
 @media (max-width: 480px) { .form-card { padding: 28px 20px; } }
-.form-card::before { content: ‘’; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(201,162,39,.12), transparent 70%); }
+.form-card::before { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(201,162,39,.12), transparent 70%); }
 .form-title { font-family: var(--ff-display); font-size: 1.6rem; font-weight: 500; margin-bottom: 4px; position: relative; z-index: 1; }
 .form-title em { font-style: italic; color: var(--red); }
 .form-sub { font-size: .82rem; color: var(--mid); margin-bottom: 22px; position: relative; z-index: 1; }
@@ -674,7 +673,7 @@ outline: none; transition: border-color var(--t); appearance: none;
 .form-ctrl:focus { border-color: var(--gold); background: var(--white); }
 .form-ctrl::placeholder { color: var(--light); }
 select.form-ctrl {
-background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%239A9A9A’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C/svg%3E”);
+background-image: url("data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%239A9A9A’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C/svg%3E”);
 background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; cursor: pointer;
 }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -693,13 +692,13 @@ background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
 text-align: center; position: relative; overflow: hidden;
 }
 .cta-section::before {
-content: ‘’; position: absolute; inset: 0;
-background: url(“data:image/svg+xml,%3Csvg width=‘80’ height=‘80’ viewBox=‘0 0 80 80’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Ccircle cx=‘40’ cy=‘40’ r=‘38’ stroke=‘rgba(255,255,255,0.04)’ fill=‘none’/%3E%3C/svg%3E”) 0 0 / 80px repeat;
+content: ''; position: absolute; inset: 0;
+background: url("data:image/svg+xml,%3Csvg width=‘80’ height=‘80’ viewBox=‘0 0 80 80’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Ccircle cx=‘40’ cy=‘40’ r=‘38’ stroke=‘rgba(255,255,255,0.04)’ fill=‘none’/%3E%3C/svg%3E”) 0 0 / 80px repeat;
 pointer-events: none;
 }
 .cta-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
 .cta-ey { font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: rgba(232,208,138,.8); margin-bottom: 16px; }
-.cta-title { font-family: var(-ff-display); font-size: clamp(2.4rem, 6.5vw, 4rem); font-weight: 300; color: var(--white); line-height: 1.08; margin-bottom: 16px; }
+.cta-title { font-family: var(--ff-display); font-size: clamp(2.4rem, 6.5vw, 4rem); font-weight: 300; color: var(--white); line-height: 1.08; margin-bottom: 16px; }
 .cta-title em { font-style: italic; color: var(--gold-pale); }
 .cta-sub { font-size: .93rem; color: rgba(255,255,255,.7); line-height: 1.75; margin-bottom: 36px; }
 .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
