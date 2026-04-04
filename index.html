@@ -6,1042 +6,1013 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HanoPino — Filipino–Chinese Community</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* ── Reset & Variables ─────────────────────────────── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ══════════════════════════════════════════════════════
+DESIGN TOKENS
+══════════════════════════════════════════════════════ */
 :root {
-–red:       #8B0000;
-–red-mid:   #A01515;
-–red-light: #C94040;
-–gold:      #C9A227;
-–gold-pale: #E8D08A;
-–gold-dim:  #9A7A1A;
-–cream:     #FAF9F6;
-–cream-alt: #F3F1EC;
-–green:     #2D5A3D;
-–green-lt:  #4A7A5A;
-–charcoal:  #1C1C1C;
-–mid:       #5A5A5A;
-–light:     #9A9A9A;
-–white:     #FFFFFF;
+–red:        #8B0000;
+–red-deep:   #6B0000;
+–red-mid:    #A01515;
+–red-wash:   rgba(139,0,0,.06);
+–gold:       #C9A227;
+–gold-pale:  #E8D08A;
+–gold-dim:   #9A7A1A;
+–gold-wash:  rgba(201,162,39,.08);
+–green:      #2D5A3D;
+–green-lt:   #4A7A5A;
+–cream:      #FAF9F6;
+–cream-alt:  #F3F1EC;
+–charcoal:   #1C1C1C;
+–mid:        #5A5A5A;
+–light:      #9A9A9A;
+–white:      #FFFFFF;
+–border:     rgba(201,162,39,.2);
 
-```
---ff-display: 'Cormorant Garamond', Georgia, serif;
---ff-body:    'Jost', sans-serif;
+–ff-display: ‘Cormorant Garamond’, Georgia, serif;
+–ff-body:    ‘Jost’, sans-serif;
 
---radius-sm:  8px;
---radius-md:  16px;
---radius-lg:  24px;
---radius-xl:  40px;
---radius-full: 9999px;
+–r-sm:   8px;
+–r-md:   16px;
+–r-lg:   24px;
+–r-xl:   36px;
+–r-2xl:  48px;
+–r-full: 9999px;
 
---shadow-soft: 0 4px 24px rgba(28,28,28,.07);
---shadow-card: 0 8px 40px rgba(28,28,28,.10);
---shadow-lift: 0 16px 56px rgba(139,0,0,.14);
+–shadow-sm:   0 2px 12px rgba(28,28,28,.06);
+–shadow-md:   0 6px 28px rgba(28,28,28,.09);
+–shadow-lg:   0 12px 48px rgba(28,28,28,.12);
+–shadow-red:  0 8px 36px rgba(139,0,0,.22);
+–shadow-gold: 0 4px 20px rgba(201,162,39,.24);
 
---transition: .3s cubic-bezier(.4,0,.2,1);
-```
-
+–ease: cubic-bezier(.4,0,.2,1);
+–t:    .3s var(–ease);
 }
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body {
-font-family: var(–ff-body);
-background: var(–cream);
-color: var(–charcoal);
-line-height: 1.6;
-overflow-x: hidden;
-}
+body { font-family: var(–ff-body); background: var(–cream); color: var(–charcoal); line-height: 1.6; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
 
-/* ── Utility ───────────────────────────────────────── */
-.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+/* ══════════════════════════════════════════════════════
+REUSABLE LAYOUT & COMPONENTS
+══════════════════════════════════════════════════════ */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-/* ── Gold Divider ──────────────────────────────────── */
-.gold-line {
-width: 48px; height: 2px;
-background: linear-gradient(90deg, var(–gold), var(–gold-pale));
-border-radius: var(–radius-full);
-margin: 0 auto 28px;
-}
-.gold-line.left { margin-left: 0; }
-
-/* Section label */
-.section-label {
-display: inline-block;
-font-family: var(–ff-body);
-font-size: .68rem;
-font-weight: 600;
-letter-spacing: .18em;
-text-transform: uppercase;
-color: var(–gold-dim);
+/* Eyebrow */
+.eyebrow-row {
+display: flex; align-items: center; justify-content: center; gap: 10px;
 margin-bottom: 12px;
 }
+.eyebrow-row.left { justify-content: flex-start; }
+.eyebrow-line { flex: 1; max-width: 40px; height: 1px; background: linear-gradient(90deg, transparent, var(–gold)); }
+.eyebrow-line.r { background: linear-gradient(90deg, var(–gold), transparent); }
+.eyebrow-txt {
+font-size: .68rem; font-weight: 600; letter-spacing: .2em;
+text-transform: uppercase; color: var(–gold-dim);
+}
 
-/* ── Buttons ───────────────────────────────────────── */
+/* Gold rule */
+.gold-rule {
+width: 40px; height: 2px;
+background: linear-gradient(90deg, var(–gold), var(–gold-pale));
+border-radius: var(–r-full); margin: 0 auto 28px;
+}
+.gold-rule.left { margin-left: 0; }
+
+/* Section title */
+.sec-title {
+font-family: var(–ff-display);
+font-size: clamp(2rem, 5vw, 3rem);
+font-weight: 400; line-height: 1.12;
+text-align: center; margin-bottom: 14px;
+}
+.sec-title em { font-style: italic; color: var(–red); }
+.sec-title.left { text-align: left; }
+.sec-sub {
+text-align: center; color: var(–mid);
+font-size: .92rem; line-height: 1.75;
+max-width: 520px; margin: 0 auto 48px;
+}
+.sec-sub.left { text-align: left; margin-left: 0; }
+
+/* Buttons */
 .btn {
 display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-font-family: var(–ff-body);
-font-size: .85rem;
-font-weight: 500;
-letter-spacing: .06em;
-padding: 14px 32px;
-border-radius: var(–radius-full);
-border: none;
-cursor: pointer;
-text-decoration: none;
-transition: var(–transition);
-white-space: nowrap;
+font-family: var(–ff-body); font-size: .84rem; font-weight: 500;
+letter-spacing: .06em; padding: 14px 30px;
+border-radius: var(–r-full); border: none; cursor: pointer;
+transition: var(–t); white-space: nowrap;
 }
-.btn-primary {
-background: var(–red);
-color: var(–white);
-box-shadow: 0 4px 18px rgba(139,0,0,.28);
-}
-.btn-primary:hover {
-background: var(–red-mid);
-box-shadow: 0 6px 28px rgba(139,0,0,.38);
-transform: translateY(-1px);
-}
-.btn-outline {
-background: transparent;
-color: var(–red);
-border: 1.5px solid var(–red);
-}
-.btn-outline:hover {
-background: var(–red);
-color: var(–white);
-transform: translateY(-1px);
-}
-.btn-gold {
-background: linear-gradient(135deg, var(–gold), var(–gold-pale));
-color: var(–charcoal);
-font-weight: 600;
-box-shadow: 0 4px 18px rgba(201,162,39,.30);
-}
-.btn-gold:hover {
-box-shadow: 0 6px 28px rgba(201,162,39,.45);
-transform: translateY(-1px);
-}
-.btn-green {
-background: var(–green);
-color: var(–white);
-box-shadow: 0 4px 18px rgba(45,90,61,.25);
-}
-.btn-green:hover {
-background: var(–green-lt);
-transform: translateY(-1px);
-}
+.btn-primary { background: var(–red); color: var(–white); box-shadow: var(–shadow-red); }
+.btn-primary:hover { background: var(–red-mid); transform: translateY(-2px); box-shadow: 0 10px 40px rgba(139,0,0,.32); }
+.btn-outline { background: transparent; color: var(–red); border: 1.5px solid var(–red); }
+.btn-outline:hover { background: var(–red); color: var(–white); transform: translateY(-2px); }
+.btn-white { background: var(–white); color: var(–red); font-weight: 600; box-shadow: 0 4px 20px rgba(0,0,0,.14); }
+.btn-white:hover { background: var(–cream); transform: translateY(-2px); }
+.btn-ghost-white { background: transparent; color: var(–white); border: 1.5px solid rgba(255,255,255,.4); }
+.btn-ghost-white:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.7); transform: translateY(-2px); }
 
-/* ── Sticky Mobile CTA ─────────────────────────────── */
+/* Fade-in */
+.fi { opacity: 0; transform: translateY(22px); transition: opacity .65s var(–ease), transform .65s var(–ease); }
+.fi.v  { opacity: 1; transform: none; }
+.fd1 { transition-delay: .08s; }
+.fd2 { transition-delay: .16s; }
+.fd3 { transition-delay: .24s; }
+.fd4 { transition-delay: .32s; }
+
+/* ══════════════════════════════════════════════════════
+STICKY MOBILE CTA
+══════════════════════════════════════════════════════ */
 .sticky-cta {
 display: none;
 position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-z-index: 999;
-background: var(–red);
-color: var(–white);
-font-family: var(–ff-body);
-font-size: .82rem;
-font-weight: 600;
-letter-spacing: .08em;
-padding: 15px 36px;
-border-radius: var(–radius-full);
-border: none;
-cursor: pointer;
-box-shadow: 0 8px 32px rgba(139,0,0,.40);
-text-decoration: none;
-white-space: nowrap;
-transition: var(–transition);
-animation: floatUp .6s ease-out;
+z-index: 9999; background: var(–red); color: var(–white);
+font-family: var(–ff-body); font-size: .8rem; font-weight: 600;
+letter-spacing: .08em; padding: 14px 34px;
+border-radius: var(–r-full); border: none; cursor: pointer;
+box-shadow: 0 8px 32px rgba(139,0,0,.42);
+transition: background var(–t), transform var(–t), opacity var(–t);
 }
 .sticky-cta:hover { background: var(–red-mid); transform: translateX(-50%) translateY(-2px); }
-@keyframes floatUp { from { opacity:0; transform: translateX(-50%) translateY(16px); } }
 @media (max-width: 768px) { .sticky-cta { display: flex; } }
 
-/* ── Nav ───────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════
+NAVIGATION
+══════════════════════════════════════════════════════ */
 nav {
 position: sticky; top: 0; z-index: 100;
-background: rgba(250,249,246,.92);
-backdrop-filter: blur(16px);
-border-bottom: 1px solid rgba(201,162,39,.18);
-padding: 16px 20px;
+background: rgba(250,249,246,.93); backdrop-filter: blur(18px);
+border-bottom: 1px solid var(–border); padding: 15px 24px;
 }
 .nav-inner {
 max-width: 1100px; margin: 0 auto;
-display: flex; align-items: center; justify-content: space-between;
+display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.nav-logo {
-font-family: var(–ff-display);
-font-size: 1.5rem;
-font-weight: 600;
-color: var(–red);
-letter-spacing: .02em;
-text-decoration: none;
-}
+.nav-logo { font-family: var(–ff-display); font-size: 1.55rem; font-weight: 600; color: var(–red); }
 .nav-logo span { color: var(–gold); }
-.nav-links {
-display: flex; gap: 28px; list-style: none;
-font-size: .8rem; font-weight: 500; letter-spacing: .06em;
-}
-.nav-links a { color: var(–mid); text-decoration: none; transition: color var(–transition); }
+.nav-links { display: flex; gap: 26px; list-style: none; }
+.nav-links a { font-size: .78rem; font-weight: 500; letter-spacing: .07em; color: var(–mid); transition: color var(–t); }
 .nav-links a:hover { color: var(–red); }
-@media (max-width: 640px) { .nav-links { display: none; } }
+@media (max-width: 700px) { .nav-links, .nav-action { display: none; } }
 
-/* ── Hero ──────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════
+HERO
+══════════════════════════════════════════════════════ */
 .hero {
-position: relative;
-padding: 100px 20px 80px;
-overflow: hidden;
-background: var(–cream);
+position: relative; overflow: hidden;
+padding: 80px 24px 72px; background: var(–cream);
 }
-.hero-bg {
-position: absolute; inset: 0; pointer-events: none;
+.hero::before {
+content: ‘’; position: absolute; inset: 0; pointer-events: none;
 background:
-radial-gradient(ellipse 60% 50% at 80% 20%, rgba(201,162,39,.08) 0%, transparent 70%),
-radial-gradient(ellipse 50% 60% at 10% 80%, rgba(139,0,0,.06) 0%, transparent 60%);
+radial-gradient(ellipse 55% 60% at 90% 10%, rgba(201,162,39,.09) 0%, transparent 65%),
+radial-gradient(ellipse 45% 50% at 5% 90%, rgba(139,0,0,.06) 0%, transparent 60%);
 }
-/* Decorative circle */
-.hero-circle {
-position: absolute; top: -80px; right: -80px;
-width: 400px; height: 400px;
-border-radius: 50%;
-border: 1px solid rgba(201,162,39,.15);
-pointer-events: none;
+.hero-ring {
+position: absolute; top: -100px; right: -100px;
+width: 480px; height: 480px; border-radius: 50%;
+border: 1px solid rgba(201,162,39,.12); pointer-events: none;
 }
-.hero-circle::after {
-content:’’; position: absolute; inset: 40px;
-border-radius: 50%; border: 1px solid rgba(201,162,39,.10);
+.hero-ring::after {
+content: ‘’; position: absolute; inset: 48px;
+border-radius: 50%; border: 1px dashed rgba(201,162,39,.10);
 }
-.hero-inner {
+.hero-grid {
 position: relative; z-index: 1;
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 56px; align-items: center;
 max-width: 1100px; margin: 0 auto;
-display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+@media (max-width: 820px) { .hero-grid { grid-template-columns: 1fr; gap: 44px; } }
+
+.hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(–gold); flex-shrink: 0; }
+.hero-eyebrow span { font-size: .7rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(–gold-dim); }
+.hero-title {
+font-family: var(–ff-display);
+font-size: clamp(3.2rem, 7.5vw, 5.2rem);
+font-weight: 300; line-height: 1.04; margin-bottom: 22px;
+}
+.hero-title em { font-style: italic; color: var(–red); }
+.hero-desc { font-size: .97rem; color: var(–mid); max-width: 430px; line-height: 1.8; margin-bottom: 36px; }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+.hero-divider { width: 100%; max-width: 430px; height: 1px; background: var(–border); margin-bottom: 28px; }
+.hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+.stat-num { font-family: var(–ff-display); font-size: 1.9rem; font-weight: 600; color: var(–red); line-height: 1; }
+.stat-lbl { font-size: .7rem; color: var(–light); letter-spacing: .07em; margin-top: 3px; }
+
+/* Hero visual */
+.hero-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+@media (max-width: 820px) { .hero-visual { order: -1; } }
+.hero-img-wrap {
+width: 100%; max-width: 460px; aspect-ratio: 4/3;
+border-radius: var(–r-xl); overflow: hidden;
+box-shadow: var(–shadow-lg); border: 1px solid var(–border); position: relative;
+}
+.hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.hero-corner-badge {
+position: absolute; bottom: 20px; left: 20px;
+background: rgba(250,249,246,.95); border: 1px solid var(–border);
+border-radius: var(–r-md); padding: 12px 16px;
+box-shadow: var(–shadow-md); display: flex; align-items: center; gap: 12px;
+}
+.hcb-icon { font-size: 1.6rem; line-height: 1; }
+.hcb-text strong { display: block; font-size: .82rem; font-weight: 600; }
+.hcb-text span { font-size: .72rem; color: var(–light); }
+.hero-pill {
+position: absolute; top: 16px; right: -12px;
+background: var(–white); border: 1px solid var(–border);
+border-radius: var(–r-full); padding: 8px 16px;
+font-size: .72rem; font-weight: 600; letter-spacing: .04em;
+box-shadow: var(–shadow-sm); white-space: nowrap;
+}
+.hero-pill span { color: var(–gold-dim); margin-right: 4px; }
+@media (max-width: 820px) { .hero-pill { display: none; } }
+
+/* ══════════════════════════════════════════════════════
+STATS BAR
+══════════════════════════════════════════════════════ */
+.stats-bar { background: var(–white); border-top: 1px solid var(–border); border-bottom: 1px solid var(–border); padding: 44px 24px; }
+.stats-bar-inner {
+max-width: 900px; margin: 0 auto;
+display: grid; grid-template-columns: repeat(3, 1fr);
+text-align: center;
+}
+.sbi { padding: 16px 24px; position: relative; }
+.sbi + .sbi::before { content: ‘’; position: absolute; left: 0; top: 20%; height: 60%; width: 1px; background: var(–border); }
+.sbi-num {
+font-family: var(–ff-display);
+font-size: clamp(2.4rem, 6vw, 3.6rem);
+font-weight: 600; color: var(–red); line-height: 1; margin-bottom: 6px;
+}
+.sbi-lbl { font-size: .78rem; font-weight: 500; color: var(–mid); letter-spacing: .08em; text-transform: uppercase; }
+.sbi-sub { font-size: .7rem; color: var(–light); margin-top: 3px; }
+
+/* ══════════════════════════════════════════════════════
+PHILOSOPHY
+══════════════════════════════════════════════════════ */
+.philosophy { padding: 96px 24px; background: var(–cream); }
+.philosophy-grid {
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 72px; align-items: center; max-width: 1100px; margin: 0 auto;
+}
+@media (max-width: 768px) { .philosophy-grid { grid-template-columns: 1fr; gap: 48px; } }
+.philo-intro { font-size: .93rem; color: var(–mid); line-height: 1.82; margin-bottom: 28px; }
+.philo-row { display: flex; gap: 18px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid var(–border); }
+.philo-row:last-child { border-bottom: none; }
+.philo-idx { font-family: var(–ff-display); font-size: 1.2rem; font-weight: 600; color: var(–gold); flex-shrink: 0; line-height: 1; margin-top: 2px; min-width: 28px; }
+.philo-name { font-size: .9rem; font-weight: 600; margin-bottom: 4px; }
+.philo-desc { font-size: .82rem; color: var(–mid); line-height: 1.65; }
+
+.philosophy-visual { position: relative; }
+.philo-img-main { width: 100%; aspect-ratio: 3/4; border-radius: var(–r-xl); overflow: hidden; border: 1px solid var(–border); box-shadow: var(–shadow-lg); }
+.philo-img-main img { width: 100%; height: 100%; object-fit: cover; }
+.philo-img-inset {
+position: absolute; bottom: -24px; right: -24px;
+width: 48%; aspect-ratio: 1;
+border-radius: var(–r-lg); overflow: hidden;
+border: 3px solid var(–white); box-shadow: var(–shadow-md);
+}
+.philo-img-inset img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 600px) { .philo-img-inset { display: none; } }
+
+/* ══════════════════════════════════════════════════════
+FEATURES
+══════════════════════════════════════════════════════ */
+.features { padding: 96px 24px; background: var(–white); }
+.features-grid {
+display: grid; grid-template-columns: repeat(3, 1fr);
+gap: 24px; max-width: 1100px; margin: 0 auto;
+}
+@media (max-width: 768px) { .features-grid { grid-template-columns: 1fr; } }
+@media (min-width: 480px) and (max-width: 768px) { .features-grid { grid-template-columns: 1fr 1fr; } }
+.feat-card {
+background: var(–cream); border-radius: var(–r-xl);
+border: 1px solid var(–border); overflow: hidden;
+transition: var(–t); display: flex; flex-direction: column;
+}
+.feat-card:hover { transform: translateY(-5px); box-shadow: var(–shadow-lg); }
+.feat-img { width: 100%; aspect-ratio: 16/10; overflow: hidden; flex-shrink: 0; }
+.feat-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(–ease); }
+.feat-card:hover .feat-img img { transform: scale(1.04); }
+.feat-body { padding: 24px 22px 28px; flex: 1; display: flex; flex-direction: column; }
+.feat-icon { font-size: 1.5rem; margin-bottom: 12px; }
+.feat-title { font-family: var(–ff-display); font-size: 1.3rem; font-weight: 500; margin-bottom: 8px; }
+.feat-desc { font-size: .82rem; color: var(–mid); line-height: 1.7; flex: 1; }
+.feat-link { display: inline-flex; align-items: center; gap: 5px; font-size: .78rem; font-weight: 600; letter-spacing: .06em; color: var(–gold-dim); margin-top: 16px; transition: color var(–t); }
+.feat-link:hover { color: var(–red); }
+
+/* ══════════════════════════════════════════════════════
+STORY BANNER
+══════════════════════════════════════════════════════ */
+.story-banner { background: var(–charcoal); }
+.story-banner-grid { display: grid; grid-template-columns: 1fr 1fr; }
+@media (max-width: 680px) { .story-banner-grid { grid-template-columns: 1fr; } }
+.sb-img { min-height: 320px; overflow: hidden; position: relative; }
+.sb-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.7); }
+.sb-img-overlay {
+position: absolute; inset: 0;
+background: linear-gradient(to right, transparent 60%, var(–charcoal));
+}
+@media (max-width: 680px) { .sb-img-overlay { background: linear-gradient(to top, var(–charcoal) 0%, transparent 60%); } }
+.sb-text {
+display: flex; flex-direction: column; justify-content: center;
+padding: 56px 48px;
+background: linear-gradient(135deg, var(–charcoal) 0%, #2A0A0A 100%);
+}
+@media (max-width: 680px) { .sb-text { padding: 40px 28px; } }
+.sb-eyebrow { font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(–gold); margin-bottom: 16px; }
+.sb-title { font-family: var(–ff-display); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 300; color: var(–white); line-height: 1.15; margin-bottom: 16px; }
+.sb-title em { font-style: italic; color: var(–gold-pale); }
+.sb-sub { font-size: .88rem; color: rgba(255,255,255,.65); line-height: 1.75; margin-bottom: 32px; }
+.sb-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ══════════════════════════════════════════════════════
+GALLERY
+══════════════════════════════════════════════════════ */
+.gatherings { padding: 96px 24px; }
+.gatherings-grid {
+display: grid;
+grid-template-columns: repeat(12, 1fr);
+grid-template-rows: 210px 210px;
+gap: 12px; max-width: 1100px; margin: 0 auto;
 }
 @media (max-width: 768px) {
-.hero-inner { grid-template-columns: 1fr; gap: 40px; }
-.hero-visual { display: none; }
+.gatherings-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+.g-item { grid-column: auto !important; grid-row: auto !important; aspect-ratio: 1; }
 }
-.hero-eyebrow {
-display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
-}
-.hero-eyebrow-dot {
-width: 6px; height: 6px; border-radius: 50%;
-background: var(–gold);
-}
-.hero-eyebrow span {
-font-size: .72rem; font-weight: 600; letter-spacing: .2em;
-text-transform: uppercase; color: var(–gold-dim);
-}
-.hero h1 {
-font-family: var(–ff-display);
-font-size: clamp(3rem, 7vw, 5rem);
-font-weight: 300;
-line-height: 1.05;
-color: var(–charcoal);
-margin-bottom: 24px;
-}
-.hero h1 em {
-font-style: italic; color: var(–red);
-}
-.hero p {
-font-size: 1rem; color: var(–mid);
-max-width: 420px; line-height: 1.75; margin-bottom: 36px;
-}
-.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
-.hero-btns .icon { font-size: 1rem; }
-
-/* Hero Visual */
-.hero-visual {
-position: relative; display: flex; align-items: center; justify-content: center;
-}
-.hero-visual-ring {
-width: 320px; height: 320px; border-radius: 50%;
-background: linear-gradient(135deg, rgba(139,0,0,.06), rgba(201,162,39,.08));
-border: 1px solid rgba(201,162,39,.22);
-display: flex; align-items: center; justify-content: center;
-position: relative;
-}
-.hero-visual-ring::before {
-content:’’; position: absolute; inset: -16px;
-border-radius: 50%; border: 1px dashed rgba(201,162,39,.18);
-}
-.hero-visual-inner {
-width: 220px; height: 220px; border-radius: 50%;
-background: linear-gradient(135deg, var(–red), #6B0000);
-display: flex; align-items: center; justify-content: center;
-box-shadow: 0 12px 48px rgba(139,0,0,.30);
-}
-.hero-visual-char {
-font-family: var(–ff-display);
-font-size: 4rem; color: rgba(255,255,255,.9);
-font-weight: 300; line-height: 1;
-text-align: center;
-}
-.hero-visual-char small {
-display: block; font-size: 1rem;
-letter-spacing: .1em; opacity: .7;
-font-style: normal;
-}
-/* Floating badges */
-.hero-badge {
-position: absolute;
-background: var(–white);
-border: 1px solid rgba(201,162,39,.25);
-border-radius: var(–radius-lg);
-padding: 10px 16px;
-font-size: .72rem;
-font-weight: 600;
-letter-spacing: .04em;
-color: var(–charcoal);
-box-shadow: var(–shadow-soft);
-white-space: nowrap;
-}
-.hero-badge-1 { top: 20px; right: -20px; }
-.hero-badge-2 { bottom: 30px; left: -30px; }
-.hero-badge span { color: var(–gold-dim); margin-right: 4px; }
-
-/* Stats row */
-.hero-stats {
-display: flex; gap: 32px; margin-top: 40px; padding-top: 32px;
-border-top: 1px solid rgba(201,162,39,.18);
-}
-.stat-item { }
-.stat-num {
-font-family: var(–ff-display);
-font-size: 1.8rem; font-weight: 600; color: var(–red);
-line-height: 1;
-}
-.stat-label { font-size: .72rem; color: var(–light); letter-spacing: .06em; margin-top: 4px; }
-
-/* ── About ─────────────────────────────────────────── */
-.about { padding: 80px 20px; background: var(–white); }
-.about-inner {
-max-width: 1100px; margin: 0 auto;
-display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-}
-@media (max-width: 768px) { .about-inner { grid-template-columns: 1fr; gap: 40px; } }
-.about-text h2 {
-font-family: var(–ff-display);
-font-size: clamp(2rem, 5vw, 3rem);
-font-weight: 400; line-height: 1.15;
-color: var(–charcoal); margin-bottom: 20px;
-}
-.about-text h2 em { font-style: italic; color: var(–red); }
-.about-text p { color: var(–mid); line-height: 1.8; margin-bottom: 16px; font-size: .95rem; }
-.about-pillars { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
-.pillar {
-display: flex; align-items: flex-start; gap: 14px;
-padding: 16px 20px;
-background: var(–cream);
-border-radius: var(–radius-md);
-border-left: 3px solid var(–gold);
-}
-.pillar-icon { font-size: 1.2rem; line-height: 1; flex-shrink: 0; margin-top: 2px; }
-.pillar-text strong { font-size: .85rem; font-weight: 600; color: var(–charcoal); display: block; }
-.pillar-text span { font-size: .8rem; color: var(–mid); }
-
-.about-visual {
-display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-}
-.about-card {
-background: var(–cream);
-border-radius: var(–radius-md);
-aspect-ratio: 1;
-display: flex; flex-direction: column; align-items: center; justify-content: center;
-gap: 10px; padding: 20px;
-border: 1px solid rgba(201,162,39,.18);
-transition: var(–transition);
-}
-.about-card:hover { transform: translateY(-3px); box-shadow: var(–shadow-card); }
-.about-card:first-child { grid-column: 1 / -1; aspect-ratio: 2/1; }
-.about-card-num {
-font-family: var(–ff-display);
-font-size: 2.4rem; font-weight: 600; color: var(–red);
-}
-.about-card-label { font-size: .78rem; color: var(–mid); text-align: center; letter-spacing: .04em; }
-
-/* ── Gallery ───────────────────────────────────────── */
-.gallery { padding: 80px 20px; }
-.gallery h2 {
-font-family: var(–ff-display);
-font-size: clamp(1.8rem, 5vw, 2.8rem);
-font-weight: 400; text-align: center;
-margin-bottom: 8px;
-}
-.gallery h2 em { font-style: italic; color: var(–red); }
-.gallery-sub { text-align: center; color: var(–mid); font-size: .9rem; margin-bottom: 40px; }
-.gallery-grid {
-max-width: 1100px; margin: 0 auto;
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-grid-template-rows: auto;
-gap: 12px;
-}
-@media (max-width: 640px) { .gallery-grid { grid-template-columns: 1fr 1fr; } }
-.gallery-item {
-border-radius: var(–radius-md);
-overflow: hidden;
-position: relative;
-background: var(–cream-alt);
-aspect-ratio: 1;
-display: flex; align-items: center; justify-content: center;
-border: 1px solid rgba(201,162,39,.15);
-transition: var(–transition);
-}
-.gallery-item:hover { transform: scale(1.02); box-shadow: var(–shadow-card); }
-.gallery-item:first-child { grid-column: 1 / 3; aspect-ratio: 2/1; }
-.gallery-item img { width:100%; height:100%; object-fit:cover; display:block; }
-.gallery-placeholder {
-display: flex; flex-direction: column; align-items: center; gap: 8px;
-color: var(–light); font-size: .75rem; letter-spacing: .06em;
-}
-.gallery-placeholder-icon { font-size: 2rem; opacity: .5; }
-.gallery-overlay {
+.g-item { border-radius: var(–r-lg); overflow: hidden; position: relative; border: 1px solid var(–border); transition: var(–t); }
+.g-item:hover { transform: scale(1.015); box-shadow: var(–shadow-lg); z-index: 2; }
+.g-item:nth-child(1) { grid-column: 1 / 6; grid-row: 1; }
+.g-item:nth-child(2) { grid-column: 6 / 9; grid-row: 1; }
+.g-item:nth-child(3) { grid-column: 9 / 13; grid-row: 1; }
+.g-item:nth-child(4) { grid-column: 1 / 5; grid-row: 2; }
+.g-item:nth-child(5) { grid-column: 5 / 10; grid-row: 2; }
+.g-item:nth-child(6) { grid-column: 10 / 13; grid-row: 2; }
+.g-item img { width: 100%; height: 100%; object-fit: cover; }
+.g-overlay {
 position: absolute; inset: 0;
-background: linear-gradient(to top, rgba(139,0,0,.5) 0%, transparent 60%);
-opacity: 0; transition: var(–transition);
-display: flex; align-items: flex-end; padding: 16px;
+background: linear-gradient(to top, rgba(139,0,0,.55) 0%, transparent 55%);
+opacity: 0; transition: var(–t);
+display: flex; align-items: flex-end; padding: 14px 16px;
 }
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-overlay-text { color: #fff; font-size: .8rem; font-weight: 500; }
+.g-item:hover .g-overlay { opacity: 1; }
+.g-label { color: #fff; font-size: .78rem; font-weight: 500; }
 
-/* ── Events ────────────────────────────────────────── */
-.events { padding: 80px 20px; background: var(–white); }
-.events-header { text-align: center; margin-bottom: 48px; }
-.events-header h2 {
-font-family: var(–ff-display);
-font-size: clamp(1.8rem, 5vw, 2.8rem);
-font-weight: 400; margin-bottom: 8px;
-}
-.events-header h2 em { font-style: italic; color: var(–red); }
-.events-header p { color: var(–mid); font-size: .9rem; }
+/* ══════════════════════════════════════════════════════
+EVENTS
+══════════════════════════════════════════════════════ */
+.events { padding: 96px 24px; background: var(–white); }
 .events-grid {
-max-width: 1100px; margin: 0 auto;
 display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-gap: 20px;
+gap: 22px; max-width: 1100px; margin: 0 auto;
 }
-.event-card {
-background: var(–cream);
-border-radius: var(–radius-lg);
-padding: 28px;
-border: 1px solid rgba(201,162,39,.2);
-position: relative; overflow: hidden;
-transition: var(–transition);
+.ev-card {
+background: var(–cream); border-radius: var(–r-xl);
+border: 1px solid var(–border); overflow: hidden;
+transition: var(–t); display: flex; flex-direction: column;
 }
-.event-card::before {
-content:’’;
-position: absolute; top: 0; left: 0; right: 0; height: 3px;
-background: linear-gradient(90deg, var(–gold), var(–gold-pale));
-}
-.event-card:hover {
-transform: translateY(-4px);
-box-shadow: var(–shadow-lift);
-}
-.event-date {
+.ev-card:hover { transform: translateY(-5px); box-shadow: var(–shadow-red); }
+.ev-top { height: 3px; background: linear-gradient(90deg, var(–gold), var(–gold-pale)); }
+.ev-body { padding: 26px 24px 28px; flex: 1; display: flex; flex-direction: column; }
+.ev-date {
 display: inline-flex; flex-direction: column; align-items: center;
 background: var(–red); color: var(–white);
-border-radius: var(–radius-sm); padding: 8px 14px;
-margin-bottom: 16px;
+border-radius: var(–r-md); padding: 8px 14px; margin-bottom: 16px; align-self: flex-start;
 }
-.event-date-day { font-family: var(–ff-display); font-size: 1.5rem; font-weight: 600; line-height: 1; }
-.event-date-month { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
-.event-card h3 { font-family: var(–ff-display); font-size: 1.2rem; font-weight: 500; margin-bottom: 8px; }
-.event-card p { font-size: .82rem; color: var(–mid); line-height: 1.65; margin-bottom: 16px; }
-.event-tag {
-display: inline-block;
-font-size: .68rem; font-weight: 600; letter-spacing: .1em;
-text-transform: uppercase;
-color: var(–gold-dim);
-border: 1px solid rgba(201,162,39,.3);
-border-radius: var(–radius-full);
-padding: 4px 12px;
-}
+.ev-day { font-family: var(–ff-display); font-size: 1.6rem; font-weight: 600; line-height: 1; }
+.ev-mon { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
+.ev-title { font-family: var(–ff-display); font-size: 1.2rem; font-weight: 500; margin-bottom: 8px; }
+.ev-desc { font-size: .82rem; color: var(–mid); line-height: 1.65; flex: 1; margin-bottom: 18px; }
+.ev-tag { display: inline-block; font-size: .67rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(–gold-dim); border: 1px solid rgba(201,162,39,.3); border-radius: var(–r-full); padding: 4px 12px; align-self: flex-start; }
 
-/* ── Featured Profile ──────────────────────────────── */
-.featured { padding: 80px 20px; }
-.featured-header { text-align: center; margin-bottom: 48px; }
-.featured-header h2 {
-font-family: var(–ff-display);
-font-size: clamp(1.8rem, 5vw, 2.8rem);
-font-weight: 400; margin-bottom: 8px;
+/* ══════════════════════════════════════════════════════
+PROFILES
+══════════════════════════════════════════════════════ */
+.profiles { padding: 96px 24px; }
+.profiles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+.pro-card {
+background: var(–white); border-radius: var(–r-2xl);
+border: 1px solid rgba(201,162,39,.28); box-shadow: var(–shadow-md);
+padding: 32px 24px 28px; text-align: center;
+transition: var(–t); position: relative; overflow: hidden;
 }
-.featured-header h2 em { font-style: italic; color: var(–red); }
-.featured-header p { color: var(–mid); font-size: .9rem; }
+.pro-card::after { content: ‘’; position: absolute; inset: 0; border-radius: var(–r-2xl); border: 1px solid rgba(201,162,39,.22); pointer-events: none; }
+.pro-card:hover { transform: translateY(-6px); box-shadow: var(–shadow-red); }
+.pro-card.featured::before { content: ‘’; position: absolute; top: -36px; right: -36px; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, rgba(201,162,39,.14), transparent 70%); }
+.pro-avatar-ring { width: 90px; height: 90px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, var(–gold), var(–gold-pale)); margin: 0 auto 16px; position: relative; }
+.pro-avatar { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(–cream-alt); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
+.pro-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.pro-badge { position: absolute; bottom: 1px; right: 1px; width: 22px; height: 22px; border-radius: 50%; background: var(–gold); border: 2px solid var(–white); display: flex; align-items: center; justify-content: center; font-size: .58rem; color: var(–white); }
+.pro-name { font-family: var(–ff-display); font-size: 1.35rem; font-weight: 500; margin-bottom: 3px; }
+.pro-loc { font-size: .74rem; color: var(–light); margin-bottom: 12px; }
+.pro-rule { width: 32px; height: 2px; background: linear-gradient(90deg, var(–gold), var(–gold-pale)); border-radius: var(–r-full); margin: 0 auto 12px; }
+.pro-bio { font-size: .81rem; color: var(–mid); line-height: 1.65; margin-bottom: 16px; }
+.pro-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 20px; }
+.pro-tag { font-size: .67rem; font-weight: 600; letter-spacing: .07em; color: var(–red); background: var(–red-wash); border-radius: var(–r-full); padding: 4px 12px; }
 
-.profiles-grid {
-max-width: 1100px; margin: 0 auto;
-display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-gap: 24px;
+/* ══════════════════════════════════════════════════════
+TESTIMONIALS
+══════════════════════════════════════════════════════ */
+.testimonials { padding: 96px 24px; background: var(–white); }
+.testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+@media (max-width: 768px) { .testi-grid { grid-template-columns: 1fr; } }
+@media (min-width: 480px) and (max-width: 768px) { .testi-grid { grid-template-columns: 1fr 1fr; } }
+.testi-card {
+background: var(–cream); border-radius: var(–r-xl);
+border: 1px solid var(–border); padding: 30px 26px 26px;
+transition: var(–t); display: flex; flex-direction: column;
 }
-.profile-card {
-background: var(–white);
-border-radius: var(–radius-xl);
-padding: 32px 24px;
-border: 1px solid rgba(201,162,39,.25);
-box-shadow: var(–shadow-card);
-text-align: center;
-position: relative; overflow: hidden;
-transition: var(–transition);
-}
-.profile-card:hover {
-transform: translateY(-5px);
-box-shadow: var(–shadow-lift);
-}
-/* Lucky glow */
-.profile-card::after {
-content:’’; position: absolute; inset: 0;
-border-radius: var(–radius-xl);
-border: 1px solid rgba(201,162,39,.35);
-pointer-events: none;
-}
-.profile-card.featured-card::before {
-content:’’;
-position: absolute; top: -30px; right: -30px;
-width: 120px; height: 120px;
-border-radius: 50%;
-background: radial-gradient(circle, rgba(201,162,39,.14) 0%, transparent 70%);
-}
-.profile-avatar-wrap {
-width: 88px; height: 88px; border-radius: 50%;
-margin: 0 auto 16px;
-padding: 3px;
-background: linear-gradient(135deg, var(–gold), var(–gold-pale));
-position: relative;
-}
-.profile-avatar {
-width: 100%; height: 100%; border-radius: 50%;
-background: var(–cream-alt);
-display: flex; align-items: center; justify-content: center;
-font-size: 2.2rem;
-overflow: hidden;
-}
-.profile-avatar img { width:100%; height:100%; object-fit:cover; }
-.profile-badge {
-position: absolute; bottom: 0; right: 0;
-width: 22px; height: 22px; border-radius: 50%;
-background: var(–gold);
-border: 2px solid var(–white);
-display: flex; align-items: center; justify-content: center;
-font-size: .6rem;
-}
-.profile-name {
-font-family: var(–ff-display);
-font-size: 1.3rem; font-weight: 500;
-color: var(–charcoal); margin-bottom: 4px;
-}
-.profile-location {
-font-size: .75rem; color: var(–light);
-margin-bottom: 12px; letter-spacing: .04em;
-}
-.profile-divider {
-width: 32px; height: 2px;
-background: linear-gradient(90deg, var(–gold), var(–gold-pale));
-border-radius: var(–radius-full);
-margin: 0 auto 12px;
-}
-.profile-tagline {
-font-size: .8rem; color: var(–mid); line-height: 1.6;
-margin-bottom: 20px;
-}
-.profile-tags {
-display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
-margin-bottom: 20px;
-}
-.profile-tag {
-font-size: .68rem; font-weight: 600; letter-spacing: .08em;
-color: var(–red); background: rgba(139,0,0,.07);
-border-radius: var(–radius-full); padding: 4px 12px;
-}
+.testi-card:hover { transform: translateY(-4px); box-shadow: var(–shadow-lg); }
+.testi-qm { font-family: var(–ff-display); font-size: 5rem; font-weight: 600; color: rgba(201,162,39,.22); line-height: .6; margin-bottom: 12px; display: block; }
+.testi-text { font-size: .87rem; color: var(–mid); line-height: 1.78; flex: 1; margin-bottom: 24px; font-style: italic; }
+.testi-rule { width: 32px; height: 1px; background: var(–gold); margin-bottom: 16px; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-av { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; overflow: hidden; border: 2px solid rgba(201,162,39,.3); background: var(–cream-alt); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+.testi-av img { width: 100%; height: 100%; object-fit: cover; }
+.testi-name { font-size: .85rem; font-weight: 600; }
+.testi-role { font-size: .72rem; color: var(–light); }
 
-/* ── Lead Capture ──────────────────────────────────── */
-.lead { padding: 80px 20px; background: var(–white); }
-.lead-card {
-max-width: 600px; margin: 0 auto;
-background: var(–cream);
-border-radius: var(–radius-xl);
-padding: 48px 40px;
-border: 1px solid rgba(201,162,39,.25);
-box-shadow: var(–shadow-card);
-position: relative; overflow: hidden;
+/* ══════════════════════════════════════════════════════
+LEAD CAPTURE
+══════════════════════════════════════════════════════ */
+.lead { padding: 96px 24px; background: var(–cream); }
+.lead-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; max-width: 1100px; margin: 0 auto; }
+@media (max-width: 768px) { .lead-inner { grid-template-columns: 1fr; gap: 48px; } }
+.lead-intro { font-size: .92rem; color: var(–mid); line-height: 1.8; margin-bottom: 28px; }
+.lead-perks { display: flex; flex-direction: column; gap: 14px; }
+.lead-perk { display: flex; align-items: flex-start; gap: 12px; }
+.perk-dot { width: 8px; height: 8px; border-radius: 50%; background: var(–gold); flex-shrink: 0; margin-top: 6px; }
+.lead-perk span { font-size: .85rem; color: var(–mid); line-height: 1.6; }
+
+.form-card {
+background: var(–white); border-radius: var(–r-xl);
+border: 1px solid var(–border); box-shadow: var(–shadow-lg);
+padding: 36px 32px; position: relative; overflow: hidden;
 }
-@media (max-width: 480px) { .lead-card { padding: 32px 20px; } }
-.lead-card::before {
-content:’’; position: absolute; top: -40px; right: -40px;
-width: 160px; height: 160px; border-radius: 50%;
-background: radial-gradient(circle, rgba(201,162,39,.12), transparent 70%);
+@media (max-width: 480px) { .form-card { padding: 28px 20px; } }
+.form-card::before { content: ‘’; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(201,162,39,.12), transparent 70%); }
+.form-title { font-family: var(–ff-display); font-size: 1.6rem; font-weight: 500; margin-bottom: 4px; position: relative; z-index: 1; }
+.form-title em { font-style: italic; color: var(–red); }
+.form-sub { font-size: .82rem; color: var(–mid); margin-bottom: 22px; position: relative; z-index: 1; }
+.form-group { margin-bottom: 14px; position: relative; z-index: 1; }
+.form-label { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .09em; color: var(–charcoal); text-transform: uppercase; margin-bottom: 5px; }
+.form-ctrl {
+width: 100%; font-family: var(–ff-body); font-size: .87rem;
+padding: 12px 16px; background: var(–cream);
+border: 1.5px solid rgba(201,162,39,.25);
+border-radius: var(–r-md); color: var(–charcoal);
+outline: none; transition: border-color var(–t); appearance: none;
 }
-.lead-card::after {
-content:’’; position: absolute; bottom: -40px; left: -40px;
-width: 140px; height: 140px; border-radius: 50%;
-background: radial-gradient(circle, rgba(139,0,0,.07), transparent 70%);
-}
-.lead-card-inner { position: relative; z-index: 1; }
-.lead-card h2 {
-font-family: var(–ff-display);
-font-size: clamp(1.6rem, 5vw, 2.4rem);
-font-weight: 400; text-align: center; margin-bottom: 8px;
-}
-.lead-card h2 em { font-style: italic; color: var(–red); }
-.lead-card p { text-align: center; color: var(–mid); font-size: .88rem; margin-bottom: 32px; line-height: 1.7; }
-.form-group { margin-bottom: 16px; }
-.form-label {
-display: block; font-size: .75rem; font-weight: 600;
-letter-spacing: .08em; color: var(–charcoal);
-margin-bottom: 6px; text-transform: uppercase;
-}
-.form-control {
-width: 100%;
-font-family: var(–ff-body); font-size: .88rem;
-padding: 13px 18px;
-background: var(–white);
-border: 1.5px solid rgba(201,162,39,.3);
-border-radius: var(–radius-md);
-color: var(–charcoal);
-outline: none;
-transition: border-color var(–transition);
-appearance: none;
-}
-.form-control:focus { border-color: var(–gold); }
-.form-control::placeholder { color: var(–light); }
-select.form-control {
-background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’ viewBox=‘0 0 12 8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%239A9A9A’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C/svg%3E”);
-background-repeat: no-repeat; background-position: right 16px center;
-padding-right: 40px;
+.form-ctrl:focus { border-color: var(–gold); background: var(–white); }
+.form-ctrl::placeholder { color: var(–light); }
+select.form-ctrl {
+background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%239A9A9A’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C/svg%3E”);
+background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; cursor: pointer;
 }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
-.form-submit { width: 100%; padding: 16px; font-size: .9rem; margin-top: 8px; }
-.success-msg {
-display: none; text-align: center; padding: 24px;
-background: rgba(45,90,61,.06); border: 1px solid rgba(45,90,61,.2);
-border-radius: var(–radius-md); color: var(–green);
-font-size: .9rem; line-height: 1.65;
-}
-.success-msg strong { display: block; font-size: 1.1rem; margin-bottom: 8px; }
+.form-submit { width: 100%; padding: 15px; font-size: .88rem; margin-top: 6px; border-radius: var(–r-md); }
+.success-msg { display: none; padding: 24px; text-align: center; background: rgba(45,90,61,.06); border: 1px solid rgba(45,90,61,.2); border-radius: var(–r-md); color: var(–green); }
+.success-msg strong { display: block; font-family: var(–ff-display); font-size: 1.15rem; margin-bottom: 8px; }
+.success-msg p { font-size: .84rem; line-height: 1.7; }
 
-/* ── CTA Community ─────────────────────────────────── */
-.cta-community {
-padding: 80px 20px;
-background: linear-gradient(135deg, var(–red) 0%, #6B0000 100%);
-text-align: center;
-position: relative; overflow: hidden;
+/* ══════════════════════════════════════════════════════
+COMMUNITY CTA
+══════════════════════════════════════════════════════ */
+.cta-section {
+padding: 96px 24px;
+background: linear-gradient(135deg, var(–red) 0%, var(–red-deep) 100%);
+text-align: center; position: relative; overflow: hidden;
 }
-.cta-community::before {
-content:’’; position: absolute; inset: 0;
-background: url(“data:image/svg+xml,%3Csvg width=‘60’ height=‘60’ viewBox=‘0 0 60 60’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Ccircle cx=‘30’ cy=‘30’ r=‘28’ stroke=‘rgba(255,255,255,0.04)’ fill=‘none’/%3E%3C/svg%3E”) 0 0 / 60px repeat;
+.cta-section::before {
+content: ‘’; position: absolute; inset: 0;
+background: url(“data:image/svg+xml,%3Csvg width=‘80’ height=‘80’ viewBox=‘0 0 80 80’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Ccircle cx=‘40’ cy=‘40’ r=‘38’ stroke=‘rgba(255,255,255,0.04)’ fill=‘none’/%3E%3C/svg%3E”) 0 0 / 80px repeat;
 pointer-events: none;
 }
-.cta-community-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
-.cta-community h2 {
-font-family: var(–ff-display);
-font-size: clamp(2rem, 6vw, 3.5rem);
-font-weight: 300; color: var(–white); margin-bottom: 16px;
-}
-.cta-community h2 em { font-style: italic; color: var(–gold-pale); }
-.cta-community p { color: rgba(255,255,255,.75); font-size: .95rem; margin-bottom: 36px; line-height: 1.7; }
+.cta-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+.cta-ey { font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: rgba(232,208,138,.8); margin-bottom: 16px; }
+.cta-title { font-family: var(–ff-display); font-size: clamp(2.4rem, 6.5vw, 4rem); font-weight: 300; color: var(–white); line-height: 1.08; margin-bottom: 16px; }
+.cta-title em { font-style: italic; color: var(–gold-pale); }
+.cta-sub { font-size: .93rem; color: rgba(255,255,255,.7); line-height: 1.75; margin-bottom: 36px; }
 .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.btn-white {
-background: var(–white); color: var(–red);
-font-weight: 600;
-box-shadow: 0 4px 18px rgba(0,0,0,.15);
-}
-.btn-white:hover {
-background: var(–cream);
-box-shadow: 0 6px 28px rgba(0,0,0,.22);
-transform: translateY(-1px);
-color: var(–red);
-}
-.btn-ghost-white {
-background: transparent; color: var(–white);
-border: 1.5px solid rgba(255,255,255,.4);
-font-weight: 500;
-}
-.btn-ghost-white:hover {
-background: rgba(255,255,255,.1);
-border-color: rgba(255,255,255,.7);
-transform: translateY(-1px);
-color: var(–white);
-}
 
-/* ── Trust ─────────────────────────────────────────── */
-.trust { padding: 64px 20px; background: var(–cream); }
-.trust-inner {
-max-width: 1100px; margin: 0 auto;
-display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
-text-align: center;
-}
-@media (max-width: 640px) { .trust-inner { grid-template-columns: 1fr; } }
-.trust-item {
-padding: 28px 20px;
-background: var(–white);
-border-radius: var(–radius-lg);
-border: 1px solid rgba(201,162,39,.18);
-}
-.trust-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
-.trust-item h3 { font-family: var(–ff-display); font-size: 1.1rem; font-weight: 500; margin-bottom: 8px; }
-.trust-item p { font-size: .82rem; color: var(–mid); line-height: 1.65; }
+/* ══════════════════════════════════════════════════════
+TRUST
+══════════════════════════════════════════════════════ */
+.trust { padding: 72px 24px; background: var(–cream); }
+.trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+@media (max-width: 640px) { .trust-grid { grid-template-columns: 1fr; } }
+.trust-item { background: var(–white); border-radius: var(–r-lg); border: 1px solid var(–border); padding: 28px 22px; text-align: center; transition: var(–t); }
+.trust-item:hover { transform: translateY(-3px); box-shadow: var(–shadow-md); }
+.trust-icon { font-size: 2rem; display: block; margin-bottom: 12px; }
+.trust-title { font-family: var(–ff-display); font-size: 1.1rem; font-weight: 500; margin-bottom: 8px; }
+.trust-desc { font-size: .81rem; color: var(–mid); line-height: 1.68; }
 
-/* ── Footer ────────────────────────────────────────── */
-footer {
-background: var(–charcoal); color: rgba(255,255,255,.6);
-padding: 36px 20px; text-align: center;
-}
-.footer-inner { max-width: 1100px; margin: 0 auto; }
-.footer-logo {
-font-family: var(–ff-display);
-font-size: 1.6rem; font-weight: 500;
-color: var(–white); margin-bottom: 12px;
-}
+/* ══════════════════════════════════════════════════════
+FOOTER
+══════════════════════════════════════════════════════ */
+footer { background: var(–charcoal); color: rgba(255,255,255,.55); padding: 48px 24px 28px; }
+.footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; max-width: 1100px; margin: 0 auto; }
+@media (max-width: 640px) { .footer-inner { grid-template-columns: 1fr; gap: 32px; } }
+.footer-logo { font-family: var(–ff-display); font-size: 1.6rem; font-weight: 500; color: var(–white); margin-bottom: 10px; }
 .footer-logo span { color: var(–gold); }
-footer p { font-size: .78rem; line-height: 1.8; }
-.footer-divider { width: 32px; height: 1px; background: rgba(201,162,39,.3); margin: 16px auto; }
+.footer-desc { font-size: .8rem; line-height: 1.75; max-width: 280px; }
+.footer-col h4 { font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(–gold); margin-bottom: 14px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col a { font-size: .8rem; color: rgba(255,255,255,.5); transition: color var(–t); }
+.footer-col a:hover { color: var(–white); }
+.footer-bottom { max-width: 1100px; margin: 28px auto 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.08); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.footer-bottom p { font-size: .74rem; }
 
-/* ── Animations ────────────────────────────────────── */
-.fade-in { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
+@keyframes fadeSlideUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+
 </style>
-
 </head>
 <body>
 
-<!-- Sticky CTA -->
+<!-- Sticky Mobile CTA -->
 
 <a href="#community" class="sticky-cta" id="stickyCta">✦ Join the Community</a>
 
-<!-- ── Navigation ──────────────────────────────────────── -->
+<!-- ══ NAV ══════════════════════════════════════════════ -->
 
 <nav>
   <div class="nav-inner">
     <a href="#" class="nav-logo">Hano<span>Pino</span></a>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
+      <li><a href="#philosophy">Philosophy</a></li>
       <li><a href="#events">Events</a></li>
       <li><a href="#profiles">Profiles</a></li>
-      <li><a href="#invite">Get Invited</a></li>
+      <li><a href="#stories">Stories</a></li>
     </ul>
+    <a href="#invite" class="btn btn-primary nav-action" style="padding:10px 22px;font-size:.78rem;">Request Invite</a>
   </div>
 </nav>
 
-<!-- ── Hero ────────────────────────────────────────────── -->
+<!-- ══ HERO ═════════════════════════════════════════════ -->
 
 <section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-circle"></div>
-  <div class="hero-inner container">
-    <!-- Text -->
-    <div class="hero-text">
+  <div class="hero-ring"></div>
+  <div class="hero-grid wrap">
+    <!-- Text column -->
+    <div class="fi">
       <div class="hero-eyebrow">
-        <div class="hero-eyebrow-dot"></div>
+        <div class="hero-dot"></div>
         <span>Filipino–Chinese Community</span>
       </div>
-      <h1>Connect.<br><em>Share.</em><br>Belong.</h1>
-      <p>A warm, curated space for Filipino–Chinese individuals to build real friendships, celebrate shared heritage, and find meaningful connections that last.</p>
+      <h1 class="hero-title">Connect.<br><em>Share.</em><br>Belong.</h1>
+      <p class="hero-desc">A warm, curated space for Filipino–Chinese individuals to build genuine friendships, celebrate shared heritage, and find meaningful connections that last.</p>
       <div class="hero-btns">
-        <a href="https://wa.me/" class="btn btn-primary">
-          <span class="icon">💬</span> Join WhatsApp Group
-        </a>
-        <a href="https://facebook.com/" class="btn btn-outline">
-          <span class="icon">👥</span> Facebook Community
-        </a>
+        <a href="https://wa.me/" class="btn btn-primary">💬 Join WhatsApp</a>
+        <a href="https://facebook.com/" class="btn btn-outline">👥 Facebook Community</a>
       </div>
+      <div class="hero-divider"></div>
       <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-num">2.4k+</div>
-          <div class="stat-label">Members</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">40+</div>
-          <div class="stat-label">Events Held</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">12</div>
-          <div class="stat-label">Cities Active</div>
-        </div>
+        <div><div class="stat-num">2.4k+</div><div class="stat-lbl">Members</div></div>
+        <div><div class="stat-num">40+</div><div class="stat-lbl">Events Held</div></div>
+        <div><div class="stat-num">12</div><div class="stat-lbl">Cities Active</div></div>
       </div>
     </div>
-    <!-- Visual -->
-    <div class="hero-visual">
-      <div class="hero-visual-ring">
-        <div class="hero-visual-inner">
-          <div class="hero-visual-char">
-            緣<small>Connection</small>
-          </div>
-        </div>
-      </div>
-      <div class="hero-badge hero-badge-1">
-        <span>✦</span> Curated &amp; Moderated
-      </div>
-      <div class="hero-badge hero-badge-2">
-        <span>✦</span> Filipino–Chinese Heritage
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── About ────────────────────────────────────────────── -->
-
-<section class="about" id="about">
-  <div class="about-inner">
-    <div class="about-text fade-in">
-      <span class="section-label">Who We Are</span>
-      <div class="gold-line left"></div>
-      <h2>Two cultures,<br><em>one community</em></h2>
-      <p>HanoPino is a private, curated community for Filipino–Chinese individuals who value genuine connection, shared roots, and the warmth of belonging. We are not a dating app — we are a home for those who cherish both their Filipino spirit and Chinese heritage.</p>
-      <p>Whether you seek lifelong friendships, professional networks, or a partner who truly understands your world, our community creates the space for it — with dignity and intention.</p>
-      <div class="about-pillars">
-        <div class="pillar">
-          <div class="pillar-icon">🌺</div>
-          <div class="pillar-text">
-            <strong>Cultural Identity</strong>
-            <span>Celebrate your dual heritage with people who understand both worlds.</span>
-          </div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">🤝</div>
-          <div class="pillar-text">
-            <strong>Meaningful Connections</strong>
-            <span>Real friendships and relationships built on shared values.</span>
-          </div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">🏮</div>
-          <div class="pillar-text">
-            <strong>Curated Gatherings</strong>
-            <span>Exclusive events designed for genuine encounters, not swiping.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="about-visual fade-in">
-      <div class="about-card">
-        <div class="about-card-num">2,400+</div>
-        <div class="about-card-label">Active Community Members</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-num">福</div>
-        <div class="about-card-label">Fortune & Prosperity</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-num">愛</div>
-        <div class="about-card-label">Love & Belonging</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Gallery ──────────────────────────────────────────── -->
-
-<section class="gallery" id="gallery">
-  <div class="container">
-    <span class="section-label" style="display:block;text-align:center">Our Gatherings</span>
-    <div class="gold-line"></div>
-    <h2><em>Memories</em> We've Made</h2>
-    <p class="gallery-sub">A glimpse into our vibrant community gatherings and celebrations.</p>
-  </div>
-  <div class="gallery-grid container fade-in">
-    <div class="gallery-item">
-      <!-- Placeholder: wide banner image -->
-      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#f5e6d0,#f0d5bc);width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-        <span style="font-size:3rem">🏮</span>
-        <span style="font-size:.75rem;color:#9A7A1A;letter-spacing:.12em;">LUNAR NEW YEAR GALA 2024</span>
-      </div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Lunar New Year Gala · Manila 2024</span></div>
-    </div>
-    <div class="gallery-item">
-      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#e8d5d5,#d5b5b5);width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-        <span style="font-size:2rem">🍜</span>
-        <span style="font-size:.7rem;color:#8B5A5A;letter-spacing:.1em;">FOOD FESTIVAL</span>
-      </div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Flavors of Two Cultures</span></div>
-    </div>
-    <div class="gallery-item">
-      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#d5e8d5,#b5d5b5);width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-        <span style="font-size:2rem">🌿</span>
-        <span style="font-size:.7rem;color:#3A6A3A;letter-spacing:.1em;">WELLNESS RETREAT</span>
-      </div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Annual Wellness Retreat</span></div>
-    </div>
-    <div class="gallery-item">
-      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#d5dbe8,#b5c0d5);width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-        <span style="font-size:2rem">🎭</span>
-        <span style="font-size:.7rem;color:#4A5A8A;letter-spacing:.1em;">CULTURAL NIGHT</span>
-      </div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Cultural Showcase Night</span></div>
-    </div>
-    <div class="gallery-item">
-      <div class="gallery-placeholder" style="background:linear-gradient(135deg,#e8e0d5,#d5c8b5);width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-        <span style="font-size:2rem">☕</span>
-        <span style="font-size:.7rem;color:#8A6A4A;letter-spacing:.1em;">COFFEE SOCIALS</span>
-      </div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Monthly Coffee Socials</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Events ────────────────────────────────────────────── -->
-
-<section class="events" id="events">
-  <div class="events-header container fade-in">
-    <span class="section-label">Upcoming</span>
-    <div class="gold-line"></div>
-    <h2>Community <em>Events</em></h2>
-    <p>Curated gatherings for authentic connections. Members get early, exclusive access.</p>
-  </div>
-  <div class="events-grid fade-in">
-    <div class="event-card">
-      <div class="event-date">
-        <span class="event-date-day">18</span>
-        <span class="event-date-month">May</span>
-      </div>
-      <h3>Spring Social Mixer</h3>
-      <p>An intimate evening of mingling, light bites, and meaningful conversations at The Grand Manila Club.</p>
-      <span class="event-tag">Social</span>
-    </div>
-    <div class="event-card">
-      <div class="event-date">
-        <span class="event-date-day">01</span>
-        <span class="event-date-month">Jun</span>
-      </div>
-      <h3>Mid-Year Gala Dinner</h3>
-      <p>A refined dinner celebration honoring our heritage and the bonds formed within our community this year.</p>
-      <span class="event-tag">Gala</span>
-    </div>
-    <div class="event-card">
-      <div class="event-date">
-        <span class="event-date-day">14</span>
-        <span class="event-date-month">Jun</span>
-      </div>
-      <h3>Heritage & Culture Workshop</h3>
-      <p>Explore shared Filipino–Chinese traditions through interactive cultural workshops and storytelling sessions.</p>
-      <span class="event-tag">Cultural</span>
-    </div>
-    <div class="event-card">
-      <div class="event-date">
-        <span class="event-date-day">22</span>
-        <span class="event-date-month">Jun</span>
-      </div>
-      <h3>Weekend Lakehouse Retreat</h3>
-      <p>An exclusive two-day retreat by the lake — curated activities, shared meals, and unhurried connection.</p>
-      <span class="event-tag">Retreat</span>
-    </div>
-  </div>
-</section>
-
-<!-- ── Featured Profiles ─────────────────────────────────── -->
-
-<section class="featured" id="profiles">
-  <div class="featured-header container fade-in">
-    <span class="section-label">Community Members</span>
-    <div class="gold-line"></div>
-    <h2>People Worth <em>Knowing</em></h2>
-    <p>A glimpse into the remarkable individuals who call HanoPino home.</p>
-  </div>
-  <div class="profiles-grid container fade-in">
-    <!-- Profile 1 -->
-    <div class="profile-card featured-card">
-      <div class="profile-avatar-wrap">
-        <div class="profile-avatar">🌸</div>
-        <div class="profile-badge">✦</div>
-      </div>
-      <div class="profile-name">Isabella Tan</div>
-      <div class="profile-location">📍 Makati, Manila</div>
-      <div class="profile-divider"></div>
-      <p class="profile-tagline">Entrepreneur · Family-Oriented · Values Meaningful Connections</p>
-      <div class="profile-tags">
-        <span class="profile-tag">Travel</span>
-        <span class="profile-tag">Cooking</span>
-        <span class="profile-tag">Mandarin</span>
-      </div>
-      <a href="#invite" class="btn btn-primary" style="width:100%;justify-content:center">Connect</a>
-    </div>
-    <!-- Profile 2 -->
-    <div class="profile-card">
-      <div class="profile-avatar-wrap">
-        <div class="profile-avatar">🎋</div>
-        <div class="profile-badge">✦</div>
-      </div>
-      <div class="profile-name">Marcus Chua</div>
-      <div class="profile-location">📍 BGC, Taguig</div>
-      <div class="profile-divider"></div>
-      <p class="profile-tagline">Finance Professional · Culturally Rooted · Adventurous Spirit</p>
-      <div class="profile-tags">
-        <span class="profile-tag">Hiking</span>
-        <span class="profile-tag">Tea</span>
-        <span class="profile-tag">Business</span>
-      </div>
-      <a href="#invite" class="btn btn-outline" style="width:100%;justify-content:center">Connect</a>
-    </div>
-    <!-- Profile 3 -->
-    <div class="profile-card">
-      <div class="profile-avatar-wrap">
-        <div class="profile-avatar">🌺</div>
-        <div class="profile-badge">✦</div>
-      </div>
-      <div class="profile-name">Sofia Lim</div>
-      <div class="profile-location">📍 Cebu City</div>
-      <div class="profile-divider"></div>
-      <p class="profile-tagline">Creative Director · Bilingual · Passionate about Heritage</p>
-      <div class="profile-tags">
-        <span class="profile-tag">Art</span>
-        <span class="profile-tag">Culture</span>
-        <span class="profile-tag">Music</span>
-      </div>
-      <a href="#invite" class="btn btn-outline" style="width:100%;justify-content:center">Connect</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── Lead Capture ──────────────────────────────────────── -->
-
-<section class="lead" id="invite">
-  <div class="lead-card fade-in">
-    <div class="lead-card-inner">
-      <span class="section-label" style="display:block;text-align:center">Exclusive Access</span>
-      <div class="gold-line"></div>
-      <h2>Get <em>Exclusive</em><br>Event Invites</h2>
-      <p>Join our curated inner circle and receive personal invitations to private dinners, cultural gatherings, and carefully selected social events — before they're announced publicly.</p>
 
 ```
-  <div id="leadForm">
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label" for="firstName">First Name</label>
-        <input class="form-control" type="text" id="firstName" placeholder="Your first name" autocomplete="given-name">
+<!-- Visual column -->
+<div class="hero-visual fi fd1">
+  <div class="hero-img-wrap">
+    <!-- Replace with real image -->
+    <img src="https://via.placeholder.com/460x345/F3F1EC/C9A227?text=Community+Gathering" alt="Filipino-Chinese community gathering">
+    <div class="hero-corner-badge">
+      <div class="hcb-icon">🏮</div>
+      <div class="hcb-text">
+        <strong>Est. 2019</strong>
+        <span>Curated &amp; Moderated</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-pill"><span>✦</span> Filipino–Chinese Heritage</div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ══ STATS BAR ═════════════════════════════════════════ -->
+
+<div class="stats-bar fi">
+  <div class="stats-bar-inner wrap">
+    <div class="sbi">
+      <div class="sbi-num">2,400+</div>
+      <div class="sbi-lbl">Active Members</div>
+      <div class="sbi-sub">Across the Philippines</div>
+    </div>
+    <div class="sbi">
+      <div class="sbi-num">40+</div>
+      <div class="sbi-lbl">Events Hosted</div>
+      <div class="sbi-sub">Since 2019</div>
+    </div>
+    <div class="sbi">
+      <div class="sbi-num">12</div>
+      <div class="sbi-lbl">Cities Active</div>
+      <div class="sbi-sub">And growing</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHILOSOPHY ════════════════════════════════════════ -->
+
+<section class="philosophy" id="philosophy">
+  <div class="philosophy-grid wrap">
+    <div class="fi">
+      <span class="eyebrow-txt" style="display:block;margin-bottom:10px;">Our Philosophy</span>
+      <div class="gold-rule left"></div>
+      <h2 class="sec-title left" style="margin-bottom:16px;">Two cultures,<br><em>one community</em></h2>
+      <p class="philo-intro">HanoPino is a private, curated community for Filipino–Chinese individuals who value genuine connection, shared roots, and the warmth of belonging. We are not a dating app — we are a home for those who cherish both their Filipino spirit and Chinese heritage.</p>
+      <div>
+        <div class="philo-row">
+          <div class="philo-idx">01</div>
+          <div>
+            <div class="philo-name">Friendship First</div>
+            <p class="philo-desc">Lasting relationships begin with genuine friendship. Our community is built for depth, not breadth — real people, real bonds.</p>
+          </div>
+        </div>
+        <div class="philo-row">
+          <div class="philo-idx">02</div>
+          <div>
+            <div class="philo-name">Cultural Identity</div>
+            <p class="philo-desc">Celebrate your dual heritage with people who understand both your Filipino heart and your Chinese roots — without explanation.</p>
+          </div>
+        </div>
+        <div class="philo-row">
+          <div class="philo-idx">03</div>
+          <div>
+            <div class="philo-name">Meaningful Connection</div>
+            <p class="philo-desc">Every gathering is designed to create space for conversations that matter — not small talk, but the kind that changes you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="philosophy-visual fi fd2">
+      <div class="philo-img-main">
+        <!-- Replace with real image -->
+        <img src="https://via.placeholder.com/400x530/F3F1EC/8B0000?text=Our+Community" alt="HanoPino community">
+      </div>
+      <div class="philo-img-inset">
+        <!-- Replace with real image -->
+        <img src="https://via.placeholder.com/200x200/FAF9F6/C9A227?text=Together" alt="Community moment">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMMUNITY FEATURES ════════════════════════════════ -->
+
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="eyebrow-row fi"><div class="eyebrow-line"></div><span class="eyebrow-txt">What We Offer</span><div class="eyebrow-line r"></div></div>
+    <h2 class="sec-title fi">A community built for<br><em>real life</em></h2>
+    <p class="sec-sub fi">More than a group chat — a curated ecosystem of connection, culture, and community.</p>
+  </div>
+  <div class="features-grid wrap">
+    <div class="feat-card fi fd1">
+      <div class="feat-img">
+        <!-- Replace with real image -->
+        <img src="https://via.placeholder.com/400x250/F3F1EC/C9A227?text=Friendship" alt="Friendship">
+      </div>
+      <div class="feat-body">
+        <div class="feat-icon">🌸</div>
+        <div class="feat-title">Genuine Friendship</div>
+        <p class="feat-desc">A curated space where Filipino–Chinese individuals with shared values meet, bond, and build friendships that go beyond the surface.</p>
+        <span class="feat-link">Learn more →</span>
+      </div>
+    </div>
+    <div class="feat-card fi fd2">
+      <div class="feat-img">
+        <!-- Replace with real image -->
+        <img src="https://via.placeholder.com/400x250/F3F1EC/8B0000?text=Relationships" alt="Relationships">
+      </div>
+      <div class="feat-body">
+        <div class="feat-icon">❤️</div>
+        <div class="feat-title">Mindful Relationships</div>
+        <p class="feat-desc">For those open to romance — we create the right environment for meaningful connections to develop naturally, with dignity and intention.</p>
+        <span class="feat-link">Learn more →</span>
+      </div>
+    </div>
+    <div class="feat-card fi fd3">
+      <div class="feat-img">
+        <!-- Replace with real image -->
+        <img src="https://via.placeholder.com/400x250/F3F1EC/2D5A3D?text=Events" alt="Events">
+      </div>
+      <div class="feat-body">
+        <div class="feat-icon">🏮</div>
+        <div class="feat-title">Curated Events</div>
+        <p class="feat-desc">From intimate dinners to cultural celebrations — exclusive gatherings designed for authentic encounters, not forced networking.</p>
+        <span class="feat-link">Learn more →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STORY BANNER ══════════════════════════════════════ -->
+
+<div class="story-banner">
+  <div class="story-banner-grid">
+    <div class="sb-img">
+      <!-- Replace with real image -->
+      <img src="https://via.placeholder.com/600x400/2A0A0A/FAF9F6?text=Your+Story+Awaits" alt="Your story awaits">
+      <div class="sb-img-overlay"></div>
+    </div>
+    <div class="sb-text fi">
+      <div class="sb-eyebrow">✦ Your Journey Begins Here</div>
+      <h2 class="sb-title">Your story<br>starts <em>here.</em></h2>
+      <p class="sb-sub">Thousands of Filipino–Chinese individuals have already found their place in HanoPino. Your community is waiting — warm, welcoming, and ready.</p>
+      <div class="sb-btns">
+        <a href="https://wa.me/" class="btn btn-white">💬 Join WhatsApp</a>
+        <a href="https://facebook.com/" class="btn btn-ghost-white">👥 Facebook</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GALLERY ═══════════════════════════════════════════ -->
+
+<section class="gatherings" id="gallery">
+  <div class="wrap">
+    <div class="eyebrow-row fi"><div class="eyebrow-line"></div><span class="eyebrow-txt">Our Gatherings</span><div class="eyebrow-line r"></div></div>
+    <h2 class="sec-title fi"><em>Memories</em> We've Made</h2>
+    <p class="sec-sub fi">A glimpse into the vibrant gatherings that have defined our community.</p>
+  </div>
+  <div class="gatherings-grid wrap fi">
+    <div class="g-item">
+      <!-- Replace with real image -->
+      <img src="https://via.placeholder.com/600x220/F0D5BC/8B0000?text=Lunar+New+Year+Gala" alt="Lunar New Year Gala">
+      <div class="g-overlay"><span class="g-label">Lunar New Year Gala · Manila</span></div>
+    </div>
+    <div class="g-item">
+      <!-- Replace with real image -->
+      <img src="https://via.placeholder.com/300x220/D5B5B5/8B0000?text=Food+Festival" alt="Food Festival">
+      <div class="g-overlay"><span class="g-label">Flavors of Two Cultures</span></div>
+    </div>
+    <div class="g-item">
+      <!-- Replace with real image -->
+      <img src="https://via.placeholder.com/300x220/B5D5B5/2D5A3D?text=Wellness+Retreat" alt="Wellness Retreat">
+      <div class="g-overlay"><span class="g-label">Annual Wellness Retreat</span></div>
+    </div>
+    <div class="g-item">
+      <!-- Replace with real image -->
+      <img src="https://via.placeholder.com/380x220/D5DBE8/4A5A8A?text=Cultural+Night" alt="Cultural Night">
+      <div class="g-overlay"><span class="g-label">Cultural Showcase Night</span></div>
+    </div>
+    <div class="g-item">
+      <!-- Replace with real image -->
+      <img src="https://via.placeholder.com/480x220/E8E0D5/9A7A1A?text=Mid-Year+Gala" alt="Mid-Year Gala">
+      <div class="g-overlay"><span class="g-label">Mid-Year Gala Dinner</span></div>
+    </div>
+    <div class="g-item">
+      <!-- Replace with real image -->
+      <img src="https://via.placeholder.com/280x220/D5C8B5/8A6A4A?text=Coffee+Socials" alt="Coffee Socials">
+      <div class="g-overlay"><span class="g-label">Monthly Coffee Socials</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EVENTS ════════════════════════════════════════════ -->
+
+<section class="events" id="events">
+  <div class="wrap">
+    <div class="eyebrow-row fi"><div class="eyebrow-line"></div><span class="eyebrow-txt">Upcoming</span><div class="eyebrow-line r"></div></div>
+    <h2 class="sec-title fi">Community <em>Events</em></h2>
+    <p class="sec-sub fi">Curated gatherings for authentic connections. Members receive early, exclusive access.</p>
+  </div>
+  <div class="events-grid wrap">
+    <div class="ev-card fi fd1">
+      <div class="ev-top"></div>
+      <div class="ev-body">
+        <div class="ev-date"><span class="ev-day">18</span><span class="ev-mon">May</span></div>
+        <h3 class="ev-title">Spring Social Mixer</h3>
+        <p class="ev-desc">An intimate evening of mingling, light bites, and meaningful conversations at The Grand Manila Club.</p>
+        <span class="ev-tag">Social</span>
+      </div>
+    </div>
+    <div class="ev-card fi fd2">
+      <div class="ev-top"></div>
+      <div class="ev-body">
+        <div class="ev-date"><span class="ev-day">01</span><span class="ev-mon">Jun</span></div>
+        <h3 class="ev-title">Mid-Year Gala Dinner</h3>
+        <p class="ev-desc">A refined dinner honoring our heritage and the bonds formed within our community this year.</p>
+        <span class="ev-tag">Gala</span>
+      </div>
+    </div>
+    <div class="ev-card fi fd3">
+      <div class="ev-top"></div>
+      <div class="ev-body">
+        <div class="ev-date"><span class="ev-day">14</span><span class="ev-mon">Jun</span></div>
+        <h3 class="ev-title">Heritage & Culture Workshop</h3>
+        <p class="ev-desc">Explore shared Filipino–Chinese traditions through interactive workshops and storytelling sessions.</p>
+        <span class="ev-tag">Cultural</span>
+      </div>
+    </div>
+    <div class="ev-card fi fd4">
+      <div class="ev-top"></div>
+      <div class="ev-body">
+        <div class="ev-date"><span class="ev-day">22</span><span class="ev-mon">Jun</span></div>
+        <h3 class="ev-title">Weekend Lakehouse Retreat</h3>
+        <p class="ev-desc">An exclusive two-day retreat — curated activities, shared meals, and unhurried connection by the lake.</p>
+        <span class="ev-tag">Retreat</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROFILES ══════════════════════════════════════════ -->
+
+<section class="profiles" id="profiles">
+  <div class="wrap">
+    <div class="eyebrow-row fi"><div class="eyebrow-line"></div><span class="eyebrow-txt">Community Members</span><div class="eyebrow-line r"></div></div>
+    <h2 class="sec-title fi">People Worth <em>Knowing</em></h2>
+    <p class="sec-sub fi">A glimpse into the remarkable individuals who call HanoPino home.</p>
+  </div>
+  <div class="profiles-grid wrap">
+    <div class="pro-card featured fi fd1">
+      <div class="pro-avatar-ring">
+        <div class="pro-avatar">
+          <!-- Replace with real image -->
+          <img src="https://via.placeholder.com/150/F3F1EC/8B0000?text=IT" alt="Isabella Tan">
+        </div>
+        <div class="pro-badge">✦</div>
+      </div>
+      <div class="pro-name">Isabella Tan</div>
+      <div class="pro-loc">📍 Makati, Manila</div>
+      <div class="pro-rule"></div>
+      <p class="pro-bio">Entrepreneur · Family-Oriented · Values Meaningful Connections</p>
+      <div class="pro-tags">
+        <span class="pro-tag">Travel</span>
+        <span class="pro-tag">Cooking</span>
+        <span class="pro-tag">Mandarin</span>
+      </div>
+      <a href="#invite" class="btn btn-primary" style="width:100%">Connect</a>
+    </div>
+    <div class="pro-card fi fd2">
+      <div class="pro-avatar-ring">
+        <div class="pro-avatar">
+          <!-- Replace with real image -->
+          <img src="https://via.placeholder.com/150/F3F1EC/C9A227?text=MC" alt="Marcus Chua">
+        </div>
+        <div class="pro-badge">✦</div>
+      </div>
+      <div class="pro-name">Marcus Chua</div>
+      <div class="pro-loc">📍 BGC, Taguig</div>
+      <div class="pro-rule"></div>
+      <p class="pro-bio">Finance Professional · Culturally Rooted · Adventurous Spirit</p>
+      <div class="pro-tags">
+        <span class="pro-tag">Hiking</span>
+        <span class="pro-tag">Tea</span>
+        <span class="pro-tag">Business</span>
+      </div>
+      <a href="#invite" class="btn btn-outline" style="width:100%">Connect</a>
+    </div>
+    <div class="pro-card fi fd3">
+      <div class="pro-avatar-ring">
+        <div class="pro-avatar">
+          <!-- Replace with real image -->
+          <img src="https://via.placeholder.com/150/F3F1EC/2D5A3D?text=SL" alt="Sofia Lim">
+        </div>
+        <div class="pro-badge">✦</div>
+      </div>
+      <div class="pro-name">Sofia Lim</div>
+      <div class="pro-loc">📍 Cebu City</div>
+      <div class="pro-rule"></div>
+      <p class="pro-bio">Creative Director · Bilingual · Passionate about Heritage</p>
+      <div class="pro-tags">
+        <span class="pro-tag">Art</span>
+        <span class="pro-tag">Culture</span>
+        <span class="pro-tag">Music</span>
+      </div>
+      <a href="#invite" class="btn btn-outline" style="width:100%">Connect</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══════════════════════════════════════ -->
+
+<section class="testimonials" id="stories">
+  <div class="wrap">
+    <div class="eyebrow-row fi"><div class="eyebrow-line"></div><span class="eyebrow-txt">Sweet Stories</span><div class="eyebrow-line r"></div></div>
+    <h2 class="sec-title fi">Stories from<br><em>our community</em></h2>
+    <p class="sec-sub fi">Real people, real connections. Here's what belonging looks like.</p>
+  </div>
+  <div class="testi-grid wrap">
+    <div class="testi-card fi fd1">
+      <span class="testi-qm">"</span>
+      <p class="testi-text">I never expected to find my best friend through a community event. We bonded over dim sum and a shared love of Tagalog novels. HanoPino gave me a family away from family.</p>
+      <div class="testi-rule"></div>
+      <div class="testi-author">
+        <div class="testi-av">
+          <!-- Replace with real image -->
+          <img src="https://via.placeholder.com/150/F3F1EC/8B0000?text=AC" alt="Angela Co">
+        </div>
+        <div>
+          <div class="testi-name">Angela Co</div>
+          <div class="testi-role">Member since 2021 · Quezon City</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fi fd2">
+      <span class="testi-qm">"</span>
+      <p class="testi-text">As someone caught between two cultures, finding HanoPino felt like finally exhaling. I didn't have to explain myself — everyone just understood. That means everything.</p>
+      <div class="testi-rule"></div>
+      <div class="testi-author">
+        <div class="testi-av">
+          <!-- Replace with real image -->
+          <img src="https://via.placeholder.com/150/F3F1EC/C9A227?text=RO" alt="Ramon Ong">
+        </div>
+        <div>
+          <div class="testi-name">Ramon Ong</div>
+          <div class="testi-role">Member since 2020 · Cebu</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fi fd3">
+      <span class="testi-qm">"</span>
+      <p class="testi-text">The events are so thoughtfully curated — never awkward, always meaningful. I met my partner at the Heritage Workshop. We're getting married in December. Thank you, HanoPino.</p>
+      <div class="testi-rule"></div>
+      <div class="testi-author">
+        <div class="testi-av">
+          <!-- Replace with real image -->
+          <img src="https://via.placeholder.com/150/F3F1EC/2D5A3D?text=ML" alt="Maria Lim">
+        </div>
+        <div>
+          <div class="testi-name">Maria Lim</div>
+          <div class="testi-role">Member since 2022 · Manila</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LEAD CAPTURE ══════════════════════════════════════ -->
+
+<section class="lead" id="invite">
+  <div class="lead-inner wrap">
+    <!-- Left: context -->
+    <div class="fi">
+      <span class="eyebrow-txt" style="display:block;margin-bottom:10px;">Exclusive Access</span>
+      <div class="gold-rule left"></div>
+      <h2 class="sec-title left" style="font-size:clamp(1.8rem,4.5vw,2.6rem);margin-bottom:16px;">Get <em>Exclusive</em><br>Event Invites</h2>
+      <p class="lead-intro">Join our curated inner circle and receive personal invitations to private dinners, cultural gatherings, and carefully selected social events — before they're announced publicly.</p>
+      <div class="lead-perks">
+        <div class="lead-perk"><div class="perk-dot"></div><span>Early access to exclusive private dinners and galas</span></div>
+        <div class="lead-perk"><div class="perk-dot"></div><span>Curated introductions to members who share your values</span></div>
+        <div class="lead-perk"><div class="perk-dot"></div><span>Invites to retreat weekends and cultural workshops</span></div>
+        <div class="lead-perk"><div class="perk-dot"></div><span>A private channel — moderated and respectful</span></div>
+      </div>
+    </div>
+
+```
+<!-- Right: form -->
+<div class="fi fd2">
+  <div class="form-card">
+    <h3 class="form-title">Request your <em>Invite</em></h3>
+    <p class="form-sub">We review each request personally to keep our community quality high.</p>
+    <div id="leadForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="firstName">First Name</label>
+          <input class="form-ctrl" type="text" id="firstName" placeholder="Your first name" autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="ageRange">Age Range</label>
+          <select class="form-ctrl" id="ageRange">
+            <option value="" disabled selected>Select</option>
+            <option>22 – 27</option><option>28 – 33</option>
+            <option>34 – 39</option><option>40 – 45</option><option>46+</option>
+          </select>
+        </div>
       </div>
       <div class="form-group">
-        <label class="form-label" for="ageRange">Age Range</label>
-        <select class="form-control" id="ageRange">
-          <option value="" disabled selected>Select range</option>
-          <option>22 – 27</option>
-          <option>28 – 33</option>
-          <option>34 – 39</option>
-          <option>40 – 45</option>
-          <option>46+</option>
+        <label class="form-label" for="lookingFor">What are you looking for?</label>
+        <select class="form-ctrl" id="lookingFor">
+          <option value="" disabled selected>Choose one</option>
+          <option>Friendship</option>
+          <option>Dating / Relationship</option>
+          <option>Events &amp; Networking</option>
+          <option>All of the above</option>
         </select>
       </div>
+      <div class="form-group">
+        <label class="form-label" for="contact">Email or WhatsApp Number</label>
+        <input class="form-ctrl" type="text" id="contact" placeholder="email@example.com or +63 9XX XXX XXXX" autocomplete="email">
+      </div>
+      <button class="btn btn-primary form-submit" onclick="submitForm()">Request Invite ✦</button>
     </div>
-    <div class="form-group">
-      <label class="form-label" for="lookingFor">What are you looking for?</label>
-      <select class="form-control" id="lookingFor">
-        <option value="" disabled selected>Choose one</option>
-        <option>Friendship</option>
-        <option>Dating / Relationship</option>
-        <option>Events &amp; Networking</option>
-        <option>All of the above</option>
-      </select>
+    <div class="success-msg" id="successMsg">
+      <strong>You're on the list! ✦</strong>
+      <p>Thank you for joining our inner circle. We'll review your request and send your first exclusive invite shortly. Welcome to HanoPino.</p>
     </div>
-    <div class="form-group">
-      <label class="form-label" for="contact">Email or WhatsApp Number</label>
-      <input class="form-control" type="text" id="contact" placeholder="email@example.com or +63 9XX XXX XXXX" autocomplete="email">
-    </div>
-    <button class="btn btn-primary form-submit" onclick="submitForm()">Request Invite ✦</button>
-  </div>
-
-  <div class="success-msg" id="successMsg">
-    <strong>You're on the list! ✦</strong>
-    Thank you for joining our inner circle. We'll send your first exclusive invite shortly. Welcome to HanoPino.
   </div>
 </div>
 ```
@@ -1049,13 +1020,13 @@ footer p { font-size: .78rem; line-height: 1.8; }
   </div>
 </section>
 
-<!-- ── Community CTA ─────────────────────────────────────── -->
+<!-- ══ COMMUNITY CTA ═════════════════════════════════════ -->
 
-<section class="cta-community" id="community">
-  <div class="cta-community-inner fade-in">
-    <span class="section-label" style="color:rgba(201,162,39,.7);">Join Today</span>
-    <h2>Your people<br>are <em>waiting</em></h2>
-    <p>Over 2,400 Filipino–Chinese individuals are already connecting, sharing, and belonging. Your seat at the table is ready.</p>
+<section class="cta-section" id="community">
+  <div class="cta-inner fi">
+    <div class="cta-ey">Join Today</div>
+    <h2 class="cta-title">Your people<br>are <em>waiting</em></h2>
+    <p class="cta-sub">Over 2,400 Filipino–Chinese individuals are already connecting, sharing, and belonging. Your seat at the table is ready.</p>
     <div class="cta-btns">
       <a href="https://wa.me/" class="btn btn-white">💬 Join WhatsApp Group</a>
       <a href="https://facebook.com/" class="btn btn-ghost-white">👥 Facebook Community</a>
@@ -1063,104 +1034,95 @@ footer p { font-size: .78rem; line-height: 1.8; }
   </div>
 </section>
 
-<!-- ── Trust ─────────────────────────────────────────────── -->
+<!-- ══ TRUST ══════════════════════════════════════════════ -->
 
 <section class="trust">
-  <div class="trust-inner container fade-in">
+  <div class="trust-grid wrap fi">
     <div class="trust-item">
       <span class="trust-icon">🛡️</span>
-      <h3>Respectful Space</h3>
-      <p>Every member is held to a standard of dignity, respect, and cultural sensitivity. Zero tolerance for disrespect.</p>
+      <h3 class="trust-title">Respectful Community</h3>
+      <p class="trust-desc">Every member is held to a standard of dignity and respect. Zero tolerance for disrespect of any kind.</p>
     </div>
     <div class="trust-item">
       <span class="trust-icon">✦</span>
-      <h3>Moderated Community</h3>
-      <p>Dedicated moderators ensure our community remains safe, welcoming, and aligned with our shared values.</p>
+      <h3 class="trust-title">Moderated Space</h3>
+      <p class="trust-desc">Dedicated moderators ensure our community remains safe, welcoming, and aligned with our shared values.</p>
     </div>
     <div class="trust-item">
       <span class="trust-icon">🔒</span>
-      <h3>Privacy First</h3>
-      <p>Your personal information stays private. We never share or sell data. Your trust is everything to us.</p>
+      <h3 class="trust-title">Privacy Focused</h3>
+      <p class="trust-desc">Your personal information stays private. We never share or sell data. Your trust is everything.</p>
     </div>
   </div>
 </section>
 
-<!-- ── Footer ────────────────────────────────────────────── -->
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-logo">Hano<span>Pino</span></div>
-    <div class="footer-divider"></div>
-    <p>A curated Filipino–Chinese community built on connection, culture, and belonging.<br>
-    &copy; 2024 HanoPino. All rights reserved. · <a href="#" style="color:rgba(255,255,255,.45);text-decoration:none;">Privacy Policy</a></p>
+  <div class="footer-inner wrap">
+    <div>
+      <div class="footer-logo">Hano<span>Pino</span></div>
+      <p class="footer-desc">A curated Filipino–Chinese community built on connection, culture, and the warmth of belonging.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#philosophy">Our Philosophy</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#profiles">Profiles</a></li>
+        <li><a href="#stories">Stories</a></li>
+        <li><a href="#invite">Get Invited</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Community</h4>
+      <ul>
+        <li><a href="https://wa.me/">WhatsApp Group</a></li>
+        <li><a href="https://facebook.com/">Facebook Page</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Community Guidelines</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom wrap">
+    <p>© 2024 HanoPino. All rights reserved.</p>
+    <p style="color:rgba(255,255,255,.3);">Filipino–Chinese · Connection · Culture · Belonging</p>
   </div>
 </footer>
 
 <script>
-  /* ── Intersection Observer: fade-in ── */
-  const fadeEls = document.querySelectorAll('.fade-in');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  fadeEls.forEach(el => observer.observe(el));
+/* ── Scroll-triggered fade-in ── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); io.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fi').forEach(el => io.observe(el));
 
-  /* ── Sticky CTA: hide on hero, show after ── */
-  const stickyCta = document.getElementById('stickyCta');
-  const heroEl = document.querySelector('.hero');
-  const stickyObs = new IntersectionObserver((entries) => {
-    stickyCta.style.opacity = entries[0].isIntersecting ? '0' : '1';
-    stickyCta.style.pointerEvents = entries[0].isIntersecting ? 'none' : 'auto';
-  }, { threshold: 0 });
-  stickyObs.observe(heroEl);
+/* ── Sticky CTA: hide while hero is visible ── */
+const cta = document.getElementById('stickyCta');
+new IntersectionObserver(entries => {
+  cta.style.opacity = entries[0].isIntersecting ? '0' : '1';
+  cta.style.pointerEvents = entries[0].isIntersecting ? 'none' : 'auto';
+}, { threshold: 0 }).observe(document.querySelector('.hero'));
 
-  /* ── Form submission simulation ── */
-  function submitForm() {
-    const firstName = document.getElementById('firstName').value.trim();
-    const ageRange  = document.getElementById('ageRange').value;
-    const lookingFor= document.getElementById('lookingFor').value;
-    const contact   = document.getElementById('contact').value.trim();
-
-    if (!firstName || !ageRange || !lookingFor || !contact) {
-      // Gentle shake effect on empty fields
-      [firstName, ageRange, lookingFor, contact].forEach((val, i) => {
-        const ids = ['firstName','ageRange','lookingFor','contact'];
-        const el = document.getElementById(ids[i]);
-        if (!val) {
-          el.style.borderColor = 'var(--red-light)';
-          el.style.animation = 'shake .3s ease';
-          setTimeout(() => { el.style.animation = ''; el.style.borderColor = ''; }, 700);
-        }
-      });
-      return;
+/* ── Form ── */
+function submitForm() {
+  const fields = ['firstName','ageRange','lookingFor','contact'];
+  let ok = true;
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      ok = false;
+      el.style.borderColor = 'var(--red-mid)';
+      el.style.animation = 'shake .35s ease';
+      setTimeout(() => { el.style.animation = ''; el.style.borderColor = ''; }, 750);
     }
-
-    document.getElementById('leadForm').style.display = 'none';
-    const msg = document.getElementById('successMsg');
-    msg.style.display = 'block';
-    msg.style.animation = 'fadeInUp .5s ease';
-  }
-
-  /* ── Shake keyframe (injected) ── */
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes shake {
-      0%,100%{transform:translateX(0)}
-      20%{transform:translateX(-6px)}
-      40%{transform:translateX(6px)}
-      60%{transform:translateX(-4px)}
-      80%{transform:translateX(4px)}
-    }
-    @keyframes fadeInUp {
-      from{opacity:0;transform:translateY(12px)}
-      to{opacity:1;transform:translateY(0)}
-    }
-  `;
-  document.head.appendChild(style);
+  });
+  if (!ok) return;
+  document.getElementById('leadForm').style.display = 'none';
+  const msg = document.getElementById('successMsg');
+  msg.style.display = 'block';
+  msg.style.animation = 'fadeSlideUp .5s ease';
+}
 </script>
 
 </body>
