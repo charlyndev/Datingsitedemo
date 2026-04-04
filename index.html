@@ -129,22 +129,32 @@ transition: var(--t); white-space: nowrap;
 .fd3 { transition-delay: .24s; }
 .fd4 { transition-delay: .32s; }
 
-/* ══════════════════════════════════════════════════════
-STICKY MOBILE CTA
-══════════════════════════════════════════════════════ */
-.sticky-cta {
-display: none;
-position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-z-index: 9999; background: var(--red); color: var(--white);
-font-family: var(--ff-body); font-size: .8rem; font-weight: 600;
-letter-spacing: .08em; padding: 14px 34px;
-border-radius: var(--r-full); border: none; cursor: pointer;
-box-shadow: 0 8px 32px rgba(139,0,0,.42);
-transition: background var(--t), transform var(--t), opacity var(--t);
-}
-.sticky-cta:hover { background: var(--red-mid); transform: translateX(-50%) translateY(-2px); }
-@media (max-width: 768px) { .sticky-cta { display: flex; } }
+/* ═════════════════════════════════════════════.sticky-cta {
+  position: fixed;
+  bottom: 20px;
+  right: 20px; /* 👈 moved from center to right */
+  z-index: 9999;
 
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
+  background: var(--red);
+  color: var(--white);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+
+  box-shadow: 0 8px 28px rgba(139,0,0,0.35);
+  cursor: pointer;
+
+  transition: transform var(--t), box-shadow var(--t);
+}
 /* ══════════════════════════════════════════════════════
 NAVIGATION
 ══════════════════════════════════════════════════════ */
@@ -744,7 +754,9 @@ footer { background: var(--charcoal); color: rgba(255,255,255,.55); padding: 48p
 
 <!-- Sticky Mobile CTA -->
 
-<a href="#community" class="sticky-cta" id="stickyCta">✦ Join the Community</a>
+<a href="#community" class="sticky-cta">
+  Join
+</a>
 
 <!-- ══ NAV ══════════════════════════════════════════════ -->
 
