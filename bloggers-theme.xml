@@ -2862,11 +2862,10 @@ function createSummaryAndThumb(pID){
 </div><!-- #tertiary -->
 
 <div class='site-info-container'>
-<div class='site-infobwrap'>
-<!-- Do not edit or remove credits without our permission: btemplates.com/author/pbtemplates -->
-Copyright &#169; <script type='text/javascript'>var creditsyear = new Date();document.write(creditsyear.getFullYear());</script> <a expr:href='data:blog.homepageUrl'><data:blog.title/></a> | Powered by <a href='http://www.blogger.com/'>Blogger</a><br/>Design by <a href='http://www.themeweaver.net/' target='_blank'>Theme Weaver</a> | Blogger Theme by <a href='http://www.bloggertipandtrick.net/' target='_blank' title='Blogging Tutorials'>Lasantha</a> - <a href='http://www.btemplates.com/author/pbtemplates/' target='_blank' title='Free Blogger Templates' rel="nofollow">PremiumBloggerTemplates.com</a>
-</div><!-- .site-info -->
-</div><!-- .site-info-container -->
+  <div class='site-infobwrap'>
+    Copyright © 2026 A Journey Towards Reintegration | Alpha Chesed
+  </div>
+</div>
 
 </footer><!-- #colophon -->
 </div><!-- #page -->
