@@ -197,7 +197,7 @@ img {
 }
 
 /* ============================================
-   POST LIST â INDEX PAGE
+   POST LIST Ã¢ÂÂ INDEX PAGE
    ============================================ */
 .blog-posts .post-outer {
   width: 92%;
@@ -254,7 +254,7 @@ h2.date-header {
   margin-bottom: 8px;
 }
 
-/* POST BODY â index snippet */
+/* POST BODY Ã¢ÂÂ index snippet */
 .blog-posts .post-body {
   font-size: 15px;
   color: #b0b0b0;
@@ -301,7 +301,7 @@ a.read-more:hover {
 }
 
 /* ============================================
-   SINGLE POST â ITEM PAGE
+   SINGLE POST Ã¢ÂÂ ITEM PAGE
    ============================================ */
 .item-page .post-outer {
   width: 92%;
@@ -341,7 +341,7 @@ a.read-more:hover {
   border-bottom: 1px solid #222222;
 }
 
-/* POST BODY â full post â THIS IS THE KEY FIX */
+/* POST BODY Ã¢ÂÂ full post Ã¢ÂÂ THIS IS THE KEY FIX */
 .item-page .post-body {
   font-size: 17px;
   line-height: 2;
@@ -581,7 +581,7 @@ a.read-more:hover {
 }
 
 /* ============================================
-   SIDEBAR â hidden, required by Blogger
+   SIDEBAR Ã¢ÂÂ hidden, required by Blogger
    ============================================ */
 #sidebar-wrapper {
   display: none;
@@ -630,7 +630,7 @@ a.read-more:hover {
 }
 
 /* ============================================
-   MOBILE â phones and small screens
+   MOBILE Ã¢ÂÂ phones and small screens
    ============================================ */
 @media only screen and (max-width: 640px) {
 
