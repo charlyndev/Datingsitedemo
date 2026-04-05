@@ -1129,7 +1129,7 @@ h1, h2, h3 {
     <b:section class='footer' id='footer' maxwidgets='1' showaddelement='no'>
       <b:widget id='HTML4' locked='false' title='Footer' type='HTML'>
         <b:includable id='main'>
-          <p class='footer-line'>&#169; 2026 The Journey Toward Reintegration &#183; Alpha Chesed</p>
+          <p class='footer-line'> Copyright &#169; 2026 The Journey Toward Reintegration &#183; Alpha Chesed</p>
         </b:includable>
       </b:widget>
     </b:section>
