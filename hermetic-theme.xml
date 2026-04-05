@@ -718,7 +718,34 @@ a.read-more:hover {
   #footer-wrapper {
     padding: 24px 16px 36px;
   }
+/* ===== FIX BLOG CONTENT READABILITY ===== */
 
+.post-body,
+.post-body p,
+.post-body span,
+.post-body div {
+  color: #e8e6e3 !important; /* soft white */
+}
+
+.post-body a {
+  color: #c8a96e !important; /* your gold accent */
+}
+
+.post-title,
+h1, h2, h3 {
+  color: #ffffff !important;
+}
+
+/* Improve paragraph spacing for mobile */
+.post-body p {
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+/* Optional: make meta text slightly visible */
+.post-meta,
+.date-header {
+  color: #aaaaaa !important;
 }
 
 ]]></b:skin>
